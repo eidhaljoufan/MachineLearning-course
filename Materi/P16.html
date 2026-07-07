@@ -1,0 +1,86 @@
+<h2>Pertemuan 16 — Deep Learning</h2>
+
+<p>
+    <strong>Deep Learning</strong> merupakan subbidang dari machine learning yang menggunakan artificial neural network dengan banyak lapisan (deep layers) untuk mempelajari representasi data secara hierarkis. Pendekatan ini telah membawa kemajuan signifikan dalam berbagai bidang seperti computer vision, natural language processing, speech recognition, hingga game playing, dengan performa yang melampaui metode tradisional. Keunggulan utama deep learning terletak pada kemampuannya mempelajari fitur langsung dari data mentah tanpa memerlukan proses feature engineering manual yang kompleks.
+</p>
+
+<div class="materi-container">
+
+    <h3>Hubungan Artificial Intelligence, Machine Learning, dan Deep Learning</h3>
+    <p>
+        Deep Learning merupakan bagian dari Machine Learning, dan Machine Learning sendiri merupakan bagian dari Artificial Intelligence. Artificial Intelligence adalah konsep paling luas yang mencakup seluruh upaya untuk membuat sistem yang bersifat cerdas. Machine Learning berfokus pada kemampuan sistem untuk belajar dari data, sedangkan Deep Learning adalah pendekatan khusus dalam machine learning yang menggunakan neural network berlapis banyak untuk menangkap kompleksitas data. Deep learning sangat efektif ketika digunakan pada data tidak terstruktur seperti gambar, audio, teks, dan video.
+    </p>
+
+    <h3>Artificial Neural Networks (ANN)</h3>
+    <p>
+        Neural network terinspirasi dari cara kerja neuron biologis pada otak manusia. Artificial Neural Network terdiri dari node (neuron) yang saling terhubung dalam beberapa lapisan. Setiap koneksi memiliki bobot (weight) yang dapat disesuaikan, dan setiap neuron melakukan perhitungan berupa penjumlahan berbobot dari input, kemudian menerapkan activation function untuk menghasilkan output. Proses pembelajaran terjadi dengan menyesuaikan bobot-bobot tersebut melalui proses training.
+    </p>
+
+    <h3>Arsitektur Neural Network</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Input Layer:</strong> <p>Lapisan pertama yang menerima data mentah atau fitur. Jumlah neuron sama dengan jumlah fitur input. Lapisan ini tidak melakukan komputasi, hanya meneruskan data ke hidden layer.</p></li>
+            <li><strong>Hidden Layers:</strong> <p>Lapisan yang berada di antara input dan output. Istilah “deep” pada deep learning merujuk pada banyaknya hidden layer. Setiap lapisan mempelajari representasi data yang semakin abstrak dan kompleks.</p></li>
+            <li><strong>Output Layer:</strong> <p>Lapisan terakhir yang menghasilkan prediksi. Pada klasifikasi, jumlah neuron sesuai dengan jumlah kelas, sedangkan pada regresi biasanya hanya satu neuron. Activation function disesuaikan dengan jenis tugas.</p></li>
+        </ul>
+    </div>
+
+    <h3>Activation Functions</h3>
+    <p>
+        Activation function menentukan keluaran dari sebuah neuron dan memperkenalkan sifat non-linear ke dalam jaringan. Tanpa non-linearitas, neural network hanya mampu mempelajari hubungan linear meskipun memiliki banyak lapisan.
+    </p>
+    <div class="list">
+        <ul>
+            <li><strong>ReLU (Rectified Linear Unit):</strong> <p>f(x) = max(0, x). Activation function paling umum digunakan pada hidden layer karena efisien secara komputasi dan membantu mengatasi vanishing gradient.</p></li>
+            <li><strong>Sigmoid:</strong> <p>Menghasilkan nilai antara 0 hingga 1. Umumnya digunakan pada output layer untuk binary classification.</p></li>
+            <li><strong>Tanh:</strong> <p>Menghasilkan nilai antara -1 hingga 1 dan bersifat zero-centered, sehingga sering lebih baik dibanding sigmoid pada hidden layer.</p></li>
+            <li><strong>Softmax:</strong> <p>Mengubah output menjadi distribusi probabilitas dan digunakan pada multi-class classification.</p></li>
+            <li><strong>Leaky ReLU dan Variannya:</strong> <p>Modifikasi ReLU untuk mengatasi masalah dying ReLU dengan mengizinkan nilai negatif kecil.</p></li>
+        </ul>
+    </div>
+
+    <h3>Forward Propagation</h3>
+    <p>
+        Forward propagation adalah proses perhitungan output neural network berdasarkan input yang diberikan. Data mengalir dari input layer menuju output layer melalui hidden layer. Pada setiap neuron dilakukan perhitungan weighted sum ditambah bias, kemudian diterapkan activation function untuk menghasilkan output akhir.
+    </p>
+
+    <h3>Backpropagation dan Gradient Descent</h3>
+    <p>
+        <strong>Backpropagation</strong> merupakan algoritma untuk menghitung gradien dari loss function terhadap setiap bobot dalam jaringan. Algoritma ini menggunakan aturan rantai (chain rule) untuk menyebarkan error dari output layer kembali ke input layer secara efisien.
+    </p>
+    <p>
+        <strong>Gradient Descent</strong> adalah algoritma optimasi yang menggunakan gradien tersebut untuk memperbarui bobot jaringan. Bobot diperbarui ke arah yang meminimalkan loss dengan mempertimbangkan nilai learning rate.
+    </p>
+
+    <h3>Loss Functions</h3>
+    <p>
+        Loss function digunakan untuk mengukur seberapa baik performa model dalam melakukan prediksi. Tujuan utama training adalah meminimalkan nilai loss.
+    </p>
+
+    <h3>Overfitting dan Regularization</h3>
+    <p>
+        Overfitting terjadi ketika model terlalu menyesuaikan diri dengan data training sehingga performanya buruk pada data baru. Untuk mengatasinya digunakan berbagai teknik regularization seperti dropout, L1/L2 regularization, early stopping, dan batch normalization.
+    </p>
+
+    <h3>Tipe Arsitektur Deep Learning</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Feedforward Neural Network:</strong> <p>Arsitektur dasar tanpa loop, cocok untuk data tabular.</p></li>
+            <li><strong>Convolutional Neural Network (CNN):</strong> <p>Digunakan untuk data visual seperti gambar.</p></li>
+            <li><strong>Recurrent Neural Network (RNN):</strong> <p>Dirancang untuk data sekuensial seperti teks dan time series.</p></li>
+            <li><strong>Transformers:</strong> <p>Arsitektur modern berbasis attention mechanism yang dominan pada NLP.</p></li>
+            <li><strong>Generative Adversarial Networks (GAN):</strong> <p>Model generatif yang terdiri dari generator dan discriminator.</p></li>
+        </ul>
+    </div>
+
+    <h3>Kelebihan dan Kekurangan Deep Learning</h3>
+    <p>
+        Deep learning unggul dalam mempelajari pola kompleks dan data tidak terstruktur, tetapi membutuhkan data dalam jumlah besar, sumber daya komputasi tinggi, dan cenderung sulit diinterpretasikan.
+    </p>
+
+    <h3>Tools dan Framework</h3>
+    <p>
+        Framework populer yang sering digunakan antara lain TensorFlow, PyTorch, Keras, JAX, dan MXNet, yang menyediakan berbagai komponen siap pakai untuk membangun, melatih, dan menerapkan model deep learning.
+    </p>
+
+</div>

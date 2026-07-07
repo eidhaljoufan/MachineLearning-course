@@ -1,0 +1,114 @@
+<h2>Pertemuan 11 & 12 — Unsupervised Learning</h2>
+
+<p>
+    <strong>Unsupervised Learning</strong> adalah paradigma pembelajaran mesin dimana model dilatih menggunakan dataset yang tidak memiliki label atau target eksplisit. Berbeda dengan supervised learning yang memerlukan pasangan input-output (X, Y), unsupervised learning hanya bekerja dengan input data (X) dan bertujuan untuk menemukan struktur tersembunyi, pola intrinsik, atau representasi yang bermakna dari data tersebut. Paradigma ini sangat powerful untuk eksplorasi data, menemukan insight yang tidak terduga, dan sebagai tahap preprocessing sebelum supervised learning.
+</p>
+
+<div class="materi-container">
+
+    <h3>Karakteristik Unsupervised Learning</h3>
+    <p>
+        Unsupervised learning memiliki karakteristik unik yang membedakannya dari paradigma pembelajaran lainnya:
+    </p>
+    <div class="list">
+        <ul>
+            <li><strong>No Labels Required:</strong> <p>Tidak memerlukan proses labeling data yang mahal dan time-consuming. Model belajar langsung dari struktur data mentah tanpa guidance eksplisit.</p></li>
+            <li><strong>Pattern Discovery:</strong> <p>Fokus pada penemuan pola, struktur, atau hubungan yang tidak terlihat secara eksplisit dalam data. Model mengekstraksi informasi laten yang mungkin tidak disadari oleh manusia.</p></li>
+            <li><strong>Exploratory Nature:</strong> <p>Sering digunakan sebagai tahap eksplorasi awal untuk memahami karakteristik dataset sebelum menerapkan teknik supervised learning.</p></li>
+            <li><strong>Subjective Evaluation:</strong> <p>Tidak ada ground truth untuk membandingkan hasil, sehingga evaluasi performa sering bersifat subjektif atau menggunakan metrik internal seperti silhouette score atau inertia.</p></li>
+        </ul>
+    </div>
+
+    <h3>Kategori Utama Unsupervised Learning</h3>
+    <p>
+        Unsupervised learning dapat diklasifikasikan menjadi beberapa kategori berdasarkan tujuan dan metode yang digunakan:
+    </p>
+
+    <h3>1. Clustering (Pengelompokan)</h3>
+    <p>
+        Clustering adalah proses mengelompokkan data points ke dalam clusters (kelompok) berdasarkan similarity atau proximity mereka dalam ruang fitur. Data points dalam cluster yang sama memiliki karakteristik yang mirip, sementara data points dari cluster berbeda memiliki karakteristik yang berbeda.
+    </p>
+    <p><strong>Tujuan:</strong> Menemukan struktur natural dalam data dengan mempartisi data menjadi groups yang homogen tanpa label yang telah ditentukan sebelumnya.</p>
+    <p><strong>Algoritma Populer:</strong></p>
+    <div class="list">
+        <ul>
+            <li><strong>K-Means:</strong> <p>Algoritma partitioning yang membagi data menjadi K clusters dengan meminimalkan within-cluster variance. Fast dan scalable, cocok untuk cluster yang spherical dan well-separated.</p></li>
+            <li><strong>Hierarchical Clustering:</strong> <p>Membangun hierarki clusters dalam bentuk dendrogram. Dapat berupa agglomerative (bottom-up) atau divisive (top-down). Tidak perlu specify jumlah cluster di awal.</p></li>
+            <li><strong>DBSCAN:</strong> <p>Density-based clustering yang dapat menemukan cluster dengan bentuk arbitrary dan mengidentifikasi outliers. Robust terhadap noise dan tidak memerlukan predefined number of clusters.</p></li>
+            <li><strong>Gaussian Mixture Models (GMM):</strong> <p>Model probabilistik yang mengasumsikan data dihasilkan dari mixture of Gaussian distributions. Lebih fleksibel dari K-Means dan dapat model cluster dengan elliptical shapes.</p></li>
+        </ul>
+    </div>
+    <p><strong>Aplikasi:</strong> Customer segmentation untuk marketing, image segmentation, anomaly detection, document clustering, gene sequence analysis, dan social network analysis.</p>
+
+    <h3>2. Dimensionality Reduction (Reduksi Dimensi)</h3>
+    <p>
+        Dimensionality reduction adalah teknik untuk mengurangi jumlah fitur (dimensi) dalam dataset sambil mempertahankan informasi penting sebanyak mungkin. Teknik ini sangat crucial untuk mengatasi curse of dimensionality dan memfasilitasi visualisasi data high-dimensional.
+    </p>
+    <p><strong>Tujuan:</strong> Mentransformasi data dari ruang high-dimensional ke ruang low-dimensional dengan meminimalkan information loss, mempercepat komputasi, dan mengurangi overfitting.</p>
+    <p><strong>Metode Populer:</strong></p>
+    <div class="list">
+        <ul>
+            <li><strong>Principal Component Analysis (PCA):</strong> <p>Teknik linear yang menemukan orthogonal axes (principal components) yang menangkap maximum variance dalam data. Component pertama menangkap variance terbesar, component kedua menangkap variance terbesar kedua yang orthogonal terhadap yang pertama, dan seterusnya.</p></li>
+            <li><strong>t-SNE (t-Distributed Stochastic Neighbor Embedding):</strong> <p>Teknik non-linear yang sangat effective untuk visualisasi data high-dimensional ke 2D atau 3D. Mempertahankan local structure dengan baik, cocok untuk exploratory data analysis.</p></li>
+            <li><strong>Autoencoders:</strong> <p>Neural network architecture yang belajar compressed representation dari data melalui encoding-decoding process. Dapat menangkap non-linear relationships dan digunakan untuk feature extraction.</p></li>
+            <li><strong>Linear Discriminant Analysis (LDA):</strong> <p>Meskipun supervised method, LDA sering digunakan untuk dimensionality reduction dengan memaksimalkan separability antar classes.</p></li>
+        </ul>
+    </div>
+    <p><strong>Aplikasi:</strong> Data visualization, feature extraction, noise reduction, data compression, preprocessing untuk machine learning models, dan image processing.</p>
+
+    <h3>3. Association Rule Learning</h3>
+    <p>
+        Association rule learning menemukan interesting relationships atau associations antara variables dalam large databases. Teknik ini mengidentifikasi aturan-aturan dalam bentuk "if X then Y" yang menggambarkan co-occurrence patterns dalam data.
+    </p>
+    <p><strong>Tujuan:</strong> Menemukan frequent patterns, associations, atau correlations dalam transactional databases atau large datasets.</p>
+    <p><strong>Konsep Kunci:</strong></p>
+    <div class="list">
+        <ul>
+            <li><strong>Support:</strong> <p>Frekuensi kemunculan itemset dalam dataset. Mengukur seberapa sering kombinasi item muncul bersamaan.</p></li>
+            <li><strong>Confidence:</strong> <p>Probabilitas kondisional bahwa Y terjadi given X terjadi. Mengukur reliability dari aturan.</p></li>
+            <li><strong>Lift:</strong> <p>Rasio observed support terhadap expected support jika X dan Y independen. Nilai > 1 mengindikasikan positive correlation.</p></li>
+        </ul>
+    </div>
+    <p><strong>Algoritma:</strong> Apriori algorithm, FP-Growth (Frequent Pattern Growth), dan Eclat algorithm.</p>
+    <p><strong>Aplikasi:</strong> Market basket analysis (recommendation systems), web usage mining, cross-selling strategies, catalog design, dan medical diagnosis.</p>
+
+    <h3>4. Anomaly Detection</h3>
+    <p>
+        Anomaly detection atau outlier detection bertujuan mengidentifikasi data points yang significantly berbeda dari mayoritas data. Anomalies adalah observations yang menyimpang dari normal behavior atau expected patterns.
+    </p>
+    <p><strong>Tujuan:</strong> Menemukan rare items, events, atau observations yang mencurigakan dengan pola yang sangat berbeda dari data normal.</p>
+    <p><strong>Teknik:</strong> Statistical methods, clustering-based approaches (data points jauh dari semua clusters), density-based methods, dan isolation forests.</p>
+    <p><strong>Aplikasi:</strong> Fraud detection dalam financial transactions, network intrusion detection, system health monitoring, quality control manufacturing, dan medical diagnosis untuk penyakit langka.</p>
+
+    <h3>Kelebihan Unsupervised Learning</h3>
+    <div class="list">
+        <ul>
+            <li><strong>No Labeling Cost:</strong> <p>Tidak memerlukan biaya dan waktu untuk labeling data yang mahal. Dapat langsung bekerja dengan raw data.</p></li>
+            <li><strong>Discover Hidden Patterns:</strong> <p>Dapat menemukan struktur atau insight yang tidak terduga dan tidak terdeteksi oleh analisis manual.</p></li>
+            <li><strong>Scalability:</strong> <p>Dapat diterapkan pada dataset besar tanpa memerlukan labeled data yang proporsinya sama besar.</p></li>
+            <li><strong>Flexibility:</strong> <p>Cocok untuk exploratory data analysis dan tidak memerlukan predefined categories atau outcomes.</p></li>
+        </ul>
+    </div>
+
+    <h3>Kekurangan Unsupervised Learning</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Subjective Interpretation:</strong> <p>Hasil sering memerlukan domain expertise untuk interpretasi dan validasi karena tidak ada ground truth.</p></li>
+            <li><strong>Difficult Evaluation:</strong> <p>Tidak ada clear metrics untuk mengukur performa secara objektif. Evaluasi bergantung pada business context.</p></li>
+            <li><strong>Less Accurate:</strong> <p>Generally kurang akurat dibanding supervised learning untuk predictive tasks karena lack of explicit guidance.</p></li>
+            <li><strong>Computational Complexity:</strong> <p>Beberapa metode seperti hierarchical clustering atau t-SNE dapat sangat computationally expensive pada large datasets.</p></li>
+            <li><strong>Sensitive to Parameters:</strong> <p>Hasil sangat bergantung pada hyperparameter yang dipilih (seperti K dalam K-Means) dan sering memerlukan trial-and-error.</p></li>
+        </ul>
+    </div>
+
+    <h3>Kapan Menggunakan Unsupervised Learning</h3>
+    <div class="list">
+        <ul>
+            <li><strong>No Labeled Data Available:</strong> <p>Ketika labeling data tidak feasible, terlalu mahal, atau memerlukan expertise khusus yang langka.</p></li>
+            <li><strong>Data Exploration:</strong> <p>Sebagai tahap awal untuk memahami struktur data sebelum menerapkan supervised learning atau mengambil keputusan bisnis.</p></li>
+            <li><strong>Feature Engineering:</strong> <p>Untuk generate new features atau reduce dimensionality sebagai preprocessing step untuk supervised models.</p></li>
+            <li><strong>Unknown Patterns:</strong> <p>Ketika kita tidak tahu apa yang kita cari dan ingin membiarkan data "berbicara sendiri" untuk reveal hidden structures.</p></li>
+        </ul>
+    </div>
+
+</div>

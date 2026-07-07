@@ -1,0 +1,102 @@
+<h2>Pertemuan 4 — K-Nearest Neighbors (KNN)</h2>
+
+<p>
+    <strong>K-Nearest Neighbors (KNN)</strong> adalah algoritma supervised learning non-parametrik yang digunakan untuk tugas klasifikasi dan regresi. KNN bekerja berdasarkan prinsip sederhana: sebuah data point akan diklasifikasikan berdasarkan mayoritas kelas dari K tetangga terdekatnya dalam ruang fitur. Algoritma ini termasuk dalam kategori instance-based learning atau lazy learning karena tidak melakukan fase training eksplisit, melainkan menyimpan seluruh training data dan melakukan komputasi saat prediksi.
+</p>
+
+<div class="materi-container">
+
+    <h3>Konsep Dasar KNN</h3>
+    <p>
+        KNN mengoperasikan asumsi fundamental bahwa data points yang memiliki karakteristik serupa cenderung berada dalam jarak yang berdekatan dalam ruang fitur multidimensional. Ketika model menerima input baru, algoritma akan menghitung jarak antara input tersebut dengan seluruh data point dalam training set, kemudian memilih K tetangga terdekat untuk menentukan output prediksi.
+    </p>
+
+    <h3>Cara Kerja Algoritma KNN</h3>
+    <p>
+        Proses prediksi KNN dapat didekomposisi menjadi langkah-langkah sistematis berikut:
+    </p>
+    <div class="list">
+        <ol>
+            <li><strong>Load Training Data:</strong> <p>Menyimpan seluruh dataset training beserta labelnya dalam memori untuk digunakan saat prediksi.</p></li>
+            <li><strong>Tentukan Nilai K:</strong> <p>Memilih jumlah tetangga terdekat (K) yang akan dipertimbangkan dalam proses voting atau averaging.</p></li>
+            <li><strong>Hitung Jarak:</strong> <p>Untuk setiap data point baru, hitung jarak antara point tersebut dengan semua data dalam training set menggunakan metrik jarak tertentu.</p></li>
+            <li><strong>Identifikasi K Tetangga Terdekat:</strong> <p>Urutkan semua data berdasarkan jarak dari yang terkecil, lalu pilih K data points dengan jarak terdekat.</p></li>
+            <li><strong>Voting/Averaging:</strong> <p>Untuk klasifikasi, lakukan majority voting dari label K tetangga. Untuk regresi, hitung rata-rata nilai dari K tetangga.</p></li>
+            <li><strong>Output Prediksi:</strong> <p>Kembalikan kelas (klasifikasi) atau nilai kontinu (regresi) sebagai hasil prediksi final.</p></li>
+        </ol>
+    </div>
+
+    <h3>Parameter K dan Dampaknya</h3>
+    <p>
+        Nilai K merupakan hyperparameter krusial yang menentukan performa model KNN. Pemilihan K yang tepat sangat bergantung pada karakteristik dataset dan kompleksitas masalah.
+    </p>
+    <div class="list">
+        <ul>
+            <li><strong>K Kecil (misal K=1 atau K=3):</strong> <p>Model menjadi sangat sensitif terhadap noise dan outlier dalam data. Decision boundary menjadi kompleks dan fleksibel, meningkatkan risiko overfitting. Model dapat menangkap pola detail tetapi kurang stabil terhadap variasi kecil dalam data.</p></li>
+            <li><strong>K Besar (misal K=50 atau K=100):</strong> <p>Model menjadi lebih robust terhadap noise karena melibatkan lebih banyak tetangga dalam voting. Decision boundary menjadi lebih smooth dan sederhana, namun dapat menyebabkan underfitting jika K terlalu besar. Model mungkin kehilangan kemampuan untuk menangkap pola lokal yang penting.</p></li>
+            <li><strong>K Optimal:</strong> <p>Biasanya ditentukan melalui cross-validation. Aturan praktis adalah menggunakan K = √N dimana N adalah jumlah data training, namun ini hanya guideline awal. Untuk binary classification, gunakan K ganjil untuk menghindari tie dalam voting.</p></li>
+        </ul>
+    </div>
+
+    <h3>Metrik Jarak dalam KNN</h3>
+    <p>
+        Pemilihan metrik jarak mempengaruhi bagaimana KNN mengukur "kedekatan" antar data points. Berikut adalah metrik yang paling umum digunakan:
+    </p>
+    <div class="list">
+        <ul>
+            <li><strong>Euclidean Distance:</strong> <p>Jarak garis lurus antara dua point dalam ruang Euclidean. Paling umum digunakan dan cocok untuk data numerik kontinu. Sensitif terhadap perbedaan skala antar fitur, sehingga normalisasi diperlukan.</p></li>
+            <li><strong>Manhattan Distance:</strong> <p>Jarak yang diukur dengan menjumlahkan perbedaan absolut setiap dimensi (seperti jarak yang ditempuh dalam grid kota). Lebih robust terhadap outlier dibanding Euclidean. Cocok untuk data high-dimensional atau sparse.</p></li>
+            <li><strong>Minkowski Distance:</strong> <p>Generalisasi dari Euclidean dan Manhattan dengan parameter p. Ketika p=1 menghasilkan Manhattan, p=2 menghasilkan Euclidean. Memberikan fleksibilitas dalam menyesuaikan karakteristik jarak dengan domain problem.</p></li>
+            <li><strong>Hamming Distance:</strong> <p>Digunakan untuk data kategorikal, menghitung jumlah posisi dimana dua string berbeda. Cocok untuk aplikasi seperti text classification atau genetic sequence comparison.</p></li>
+        </ul>
+    </div>
+
+    <h3>Kelebihan KNN</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Sederhana dan Intuitif:</strong> <p>Konsep algoritma mudah dipahami dan diimplementasikan tanpa memerlukan pengetahuan matematis yang kompleks.</p></li>
+            <li><strong>No Training Phase:</strong> <p>Tidak memerlukan fase training eksplisit sehingga sangat cepat untuk mempersiapkan model dengan data baru.</p></li>
+            <li><strong>Adaptif terhadap Data Baru:</strong> <p>Dapat langsung mengakomodasi data training baru tanpa perlu rebuild model dari awal.</p></li>
+            <li><strong>Multi-Class Support:</strong> <p>Secara natural dapat menangani masalah klasifikasi dengan banyak kelas tanpa modifikasi khusus.</p></li>
+            <li><strong>Non-Linear Decision Boundary:</strong> <p>Mampu membentuk decision boundary yang kompleks dan non-linear tanpa asumsi distribusi data.</p></li>
+        </ul>
+    </div>
+
+    <h3>Kekurangan KNN</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Computational Cost Tinggi pada Prediksi:</strong> <p>Harus menghitung jarak ke semua training points untuk setiap prediksi, menjadikannya lambat pada dataset besar (O(n) complexity).</p></li>
+            <li><strong>Memory Intensive:</strong> <p>Menyimpan seluruh training dataset dalam memori, tidak efisien untuk big data applications.</p></li>
+            <li><strong>Sensitif terhadap Feature Scaling:</strong> <p>Fitur dengan skala besar akan mendominasi perhitungan jarak. Feature normalization atau standardization adalah mandatory.</p></li>
+            <li><strong>Curse of Dimensionality:</strong> <p>Performa menurun drastis pada data high-dimensional karena konsep "jarak terdekat" menjadi tidak bermakna ketika dimensi meningkat.</p></li>
+            <li><strong>Sensitif terhadap Irrelevant Features:</strong> <p>Fitur yang tidak relevan dapat mengacaukan perhitungan jarak dan menurunkan akurasi. Feature selection menjadi sangat penting.</p></li>
+            <li><strong>Imbalanced Data Problem:</strong> <p>Kelas mayoritas cenderung mendominasi voting, menyebabkan bias prediksi pada kelas dengan sampel lebih sedikit.</p></li>
+        </ul>
+    </div>
+
+    <h3>Aplikasi KNN</h3>
+    <p>
+        KNN telah diimplementasikan secara luas dalam berbagai domain aplikasi praktis:
+    </p>
+    <div class="list">
+        <ul>
+            <li><strong>Recommendation Systems:</strong> <p>Menemukan user atau item dengan preferensi serupa untuk memberikan rekomendasi produk atau konten (collaborative filtering).</p></li>
+            <li><strong>Pattern Recognition:</strong> <p>Pengenalan tulisan tangan, face recognition, dan fingerprint identification dengan membandingkan fitur visual.</p></li>
+            <li><strong>Medical Diagnosis:</strong> <p>Klasifikasi penyakit berdasarkan similarity gejala atau parameter medis pasien dengan historical records.</p></li>
+            <li><strong>Credit Rating:</strong> <p>Menilai kelayakan kredit dengan membandingkan profil calon debitur dengan historical data nasabah.</p></li>
+            <li><strong>Anomaly Detection:</strong> <p>Identifikasi data point yang memiliki jarak jauh dari semua tetangganya sebagai potential outlier atau fraud.</p></li>
+        </ul>
+    </div>
+
+    <h3>Best Practices dalam Implementasi KNN</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Feature Scaling:</strong> <p>Selalu lakukan normalisasi atau standardisasi fitur sebelum menerapkan KNN untuk memastikan semua fitur berkontribusi secara proporsional.</p></li>
+            <li><strong>Dimensionality Reduction:</strong> <p>Gunakan teknik seperti PCA atau feature selection untuk mengurangi dimensi dan mengatasi curse of dimensionality.</p></li>
+            <li><strong>Cross-Validation untuk K:</strong> <p>Gunakan k-fold cross-validation untuk menemukan nilai K optimal yang memberikan best generalization performance.</p></li>
+            <li><strong>Efficient Data Structures:</strong> <p>Implementasikan struktur data seperti KD-Tree atau Ball Tree untuk mempercepat nearest neighbor search pada dataset besar.</p></li>
+            <li><strong>Weighted KNN:</strong> <p>Pertimbangkan untuk memberikan bobot lebih tinggi pada tetangga yang lebih dekat (distance-weighted voting) untuk meningkatkan akurasi.</p></li>
+        </ul>
+    </div>
+
+</div>

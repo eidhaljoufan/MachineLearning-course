@@ -1,0 +1,151 @@
+<h2>Pertemuan 13 — Clustering</h2>
+
+<p>
+    <strong>Clustering</strong> adalah teknik unsupervised learning yang bertujuan untuk mengelompokkan data points ke dalam clusters berdasarkan tingkat kemiripan (similarity) atau kedekatan (proximity) antar data. Data points yang berada dalam satu cluster memiliki karakteristik yang serupa, sedangkan data points yang berada pada cluster berbeda memiliki karakteristik yang tidak serupa. Clustering merupakan salah satu metode paling fundamental dan paling banyak digunakan dalam machine learning untuk menemukan struktur alami dalam data tanpa memerlukan label yang telah ditentukan sebelumnya.
+</p>
+
+<div class="materi-container">
+
+    <h3>Konsep Dasar Clustering</h3>
+    <p>
+        Clustering bekerja dengan mengukur tingkat kemiripan atau jarak antar data points dalam ruang fitur multidimensional. Tujuan utama dari proses ini adalah memaksimalkan kemiripan dalam satu cluster (intra-cluster similarity) dan meminimalkan kemiripan antar cluster yang berbeda (inter-cluster similarity). Proses clustering dilakukan secara iteratif hingga mencapai kondisi optimal, di mana penugasan data points ke dalam clusters sudah stabil atau memenuhi kriteria konvergensi tertentu.
+    </p>
+
+    <h3>Perbandingan Algoritma Clustering</h3>
+    <table class="python-table">
+        <thead>
+            <tr>
+                <th>Algoritma</th>
+                <th>Cara Kerja</th>
+                <th>Kelebihan</th>
+                <th>Kekurangan</th>
+                <th>Use Case</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>K-Means</strong></td>
+                <td>Metode partitioning yang membagi data menjadi K clusters dengan memperbarui centroid secara iteratif dan menetapkan data points berdasarkan jarak Euclidean terdekat.</td>
+                <td>Cepat, scalable, mudah diimplementasikan, efisien untuk dataset besar, cocok untuk cluster berbentuk spherical.</td>
+                <td>Harus menentukan nilai K di awal, sensitif terhadap inisialisasi awal, tidak cocok untuk cluster non-spherical, sensitif terhadap outliers.</td>
+                <td>Segmentasi pelanggan, kompresi gambar, clustering dokumen.</td>
+            </tr>
+            <tr>
+                <td><strong>Hierarchical</strong></td>
+                <td>Membangun hierarki clusters dalam bentuk dendrogram menggunakan pendekatan agglomerative (bottom-up) atau divisive (top-down) berdasarkan kriteria linkage.</td>
+                <td>Tidak perlu menentukan K di awal, menghasilkan dendrogram yang informatif, cocok untuk data dengan struktur hierarkis alami.</td>
+                <td>Kompleksitas komputasi tinggi O(n³), tidak scalable untuk dataset besar, sulit diperbaiki jika terjadi kesalahan merge atau split.</td>
+                <td>Pembuatan taksonomi, analisis sekuens gen, hierarki jejaring sosial.</td>
+            </tr>
+            <tr>
+                <td><strong>DBSCAN</strong></td>
+                <td>Metode density-based clustering yang mengelompokkan data points berdasarkan keterjangkauan kepadatan menggunakan parameter epsilon (radius) dan MinPoints.</td>
+                <td>Dapat menemukan cluster dengan bentuk arbitrer, robust terhadap outliers, mendeteksi jumlah cluster secara otomatis, tidak perlu menentukan K.</td>
+                <td>Sensitif terhadap pemilihan parameter epsilon dan MinPoints, sulit menangani cluster dengan kepadatan bervariasi, kurang efisien pada data berdimensi tinggi.</td>
+                <td>Deteksi anomali, analisis data spasial, pemfilteran noise.</td>
+            </tr>
+            <tr>
+                <td><strong>GMM</strong></td>
+                <td>Model probabilistik yang mengasumsikan data dihasilkan dari campuran beberapa distribusi Gaussian, menggunakan algoritma Expectation-Maximization (EM) untuk fitting.</td>
+                <td>Soft clustering (penugasan probabilistik), mampu memodelkan cluster berbentuk elips, lebih fleksibel dibanding K-Means, menyediakan estimasi ketidakpastian.</td>
+                <td>Komputasi lebih mahal, sensitif terhadap inisialisasi, mengasumsikan distribusi Gaussian, dapat konvergen ke local optima.</td>
+                <td>Segmentasi gambar, pengenalan pembicara, bioinformatika.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>1. K-Means Clustering</h3>
+    <p>
+        K-Means merupakan algoritma clustering paling populer yang bekerja dengan pendekatan partitioning. Algoritma ini membagi dataset menjadi K clusters dengan tujuan meminimalkan within-cluster sum of squares (WCSS), yaitu total jarak kuadrat antara setiap data point dengan centroid dari cluster tempatnya berada.
+    </p>
+    <p><strong>Langkah-langkah K-Means:</strong></p>
+    <div class="list">
+        <ol>
+            <li><strong>Inisialisasi:</strong> <p>Memilih K centroid secara acak atau menggunakan metode seperti K-Means++ untuk inisialisasi yang lebih optimal.</p></li>
+            <li><strong>Assignment:</strong> <p>Menetapkan setiap data point ke cluster dengan centroid terdekat berdasarkan jarak Euclidean.</p></li>
+            <li><strong>Update:</strong> <p>Menghitung ulang centroid setiap cluster sebagai nilai rata-rata dari seluruh data points yang berada dalam cluster tersebut.</p></li>
+            <li><strong>Iterasi:</strong> <p>Mengulangi langkah assignment dan update hingga centroid tidak mengalami perubahan signifikan atau mencapai jumlah iterasi maksimum.</p></li>
+        </ol>
+    </div>
+    <p><strong>Menentukan Nilai K Optimal:</strong> Dapat menggunakan Elbow Method (plot WCSS terhadap K dan mencari titik “siku”) atau Silhouette Score yang mengukur seberapa baik sebuah data point cocok dengan cluster-nya.</p>
+
+    <h3>2. Hierarchical Clustering</h3>
+    <p>
+        Hierarchical clustering membangun struktur hierarki cluster yang dapat divisualisasikan menggunakan dendrogram. Terdapat dua pendekatan utama, yaitu agglomerative (bottom-up) yang dimulai dari setiap data point sebagai cluster tersendiri kemudian digabungkan secara bertahap, serta divisive (top-down) yang dimulai dari satu cluster besar lalu dipecah secara iteratif.
+    </p>
+    <p><strong>Metode Linkage:</strong></p>
+    <div class="list">
+        <ul>
+            <li><strong>Single Linkage:</strong> <p>Jarak antar cluster ditentukan oleh jarak minimum antara dua data points dari cluster yang berbeda. Metode ini cenderung menghasilkan cluster memanjang.</p></li>
+            <li><strong>Complete Linkage:</strong> <p>Jarak antar cluster ditentukan oleh jarak maksimum antara dua data points dari cluster yang berbeda. Menghasilkan cluster yang lebih kompak.</p></li>
+            <li><strong>Average Linkage:</strong> <p>Jarak antar cluster dihitung sebagai rata-rata jarak seluruh pasangan data points dari cluster yang berbeda.</p></li>
+            <li><strong>Ward's Method:</strong> <p>Mencari penggabungan cluster yang meminimalkan peningkatan variansi total dalam cluster.</p></li>
+        </ul>
+    </div>
+
+    <h3>3. DBSCAN (Density-Based Spatial Clustering)</h3>
+    <p>
+        DBSCAN merupakan algoritma clustering berbasis kepadatan yang mampu menemukan cluster dengan bentuk arbitrer serta secara otomatis mengidentifikasi outliers sebagai noise. Algoritma ini berangkat dari asumsi bahwa cluster merupakan area dengan kepadatan data tinggi yang dipisahkan oleh area dengan kepadatan rendah.
+    </p>
+    <p><strong>Konsep Kunci:</strong></p>
+    <div class="list">
+        <ul>
+            <li><strong>Epsilon (ε):</strong> <p>Radius neighborhood untuk setiap data point, di mana data points dalam radius ini dianggap sebagai tetangga.</p></li>
+            <li><strong>MinPoints:</strong> <p>Jumlah minimum data points yang harus berada dalam ε-neighborhood untuk membentuk area dengan kepadatan tinggi.</p></li>
+            <li><strong>Core Points:</strong> <p>Data points yang memiliki setidaknya MinPoints tetangga dalam radius ε.</p></li>
+            <li><strong>Border Points:</strong> <p>Data points yang bukan core point tetapi berada dalam neighborhood dari core point.</p></li>
+            <li><strong>Noise Points:</strong> <p>Data points yang bukan core maupun border dan dianggap sebagai outliers.</p></li>
+        </ul>
+    </div>
+
+    <h3>4. Gaussian Mixture Models (GMM)</h3>
+    <p>
+        Gaussian Mixture Models (GMM) merupakan model probabilistik yang mengasumsikan data dihasilkan dari campuran beberapa distribusi Gaussian. Berbeda dengan K-Means yang melakukan hard assignment, GMM menggunakan soft assignment, di mana setiap data point memiliki probabilitas keanggotaan pada setiap cluster.
+    </p>
+    <p><strong>Expectation-Maximization (EM) Algorithm:</strong></p>
+    <div class="list">
+        <ol>
+            <li><strong>Initialization:</strong> <p>Menginisialisasi parameter model seperti mean, covariance, dan mixing coefficients untuk setiap distribusi Gaussian.</p></li>
+            <li><strong>E-Step (Expectation):</strong> <p>Menghitung probabilitas setiap data point berasal dari masing-masing Gaussian component.</p></li>
+            <li><strong>M-Step (Maximization):</strong> <p>Memperbarui parameter model untuk memaksimalkan likelihood berdasarkan probabilitas saat ini.</p></li>
+            <li><strong>Convergence:</strong> <p>Mengulangi E-step dan M-step hingga nilai log-likelihood konvergen atau mencapai batas iterasi maksimum.</p></li>
+        </ol>
+    </div>
+
+    <h3>Evaluasi Clustering</h3>
+    <p>
+        Karena clustering termasuk ke dalam unsupervised learning, evaluasi performanya tidak sesederhana supervised learning. Beberapa metrik yang umum digunakan antara lain:
+    </p>
+    <div class="list">
+        <ul>
+            <li><strong>Silhouette Score:</strong> <p>Mengukur tingkat kemiripan sebuah data point dengan cluster-nya sendiri dibandingkan dengan cluster lain.</p></li>
+            <li><strong>Davies-Bouldin Index:</strong> <p>Rasio antara jarak dalam cluster terhadap jarak antar cluster. Nilai yang lebih rendah menunjukkan hasil clustering yang lebih baik.</p></li>
+            <li><strong>Calinski-Harabasz Index:</strong> <p>Perbandingan antara dispersi antar cluster dan dispersi dalam cluster. Nilai yang lebih tinggi menunjukkan kualitas clustering yang lebih baik.</p></li>
+            <li><strong>Inertia (WCSS):</strong> <p>Total jarak kuadrat dari setiap data point ke centroid cluster-nya, khusus digunakan pada K-Means.</p></li>
+        </ul>
+    </div>
+
+    <h3>Aplikasi Praktis Clustering</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Customer Segmentation:</strong> <p>Mengelompokkan pelanggan berdasarkan perilaku pembelian, demografi, atau preferensi untuk strategi pemasaran yang lebih tepat sasaran.</p></li>
+            <li><strong>Image Segmentation:</strong> <p>Membagi gambar menjadi region yang bermakna untuk berbagai tugas computer vision.</p></li>
+            <li><strong>Anomaly Detection:</strong> <p>Data points yang tidak termasuk ke dalam cluster manapun atau hanya membentuk cluster kecil dapat dianggap sebagai anomali.</p></li>
+            <li><strong>Document Organization:</strong> <p>Mengelompokkan dokumen atau artikel berdasarkan kemiripan topik untuk sistem pencarian informasi.</p></li>
+            <li><strong>Recommendation Systems:</strong> <p>Clustering pengguna atau item untuk mendukung collaborative filtering.</p></li>
+            <li><strong>Genomics:</strong> <p>Mengelompokkan data ekspresi gen untuk mengidentifikasi pola biologis atau klasifikasi penyakit.</p></li>
+        </ul>
+    </div>
+
+    <h3>Best Practices dalam Clustering</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Feature Scaling:</strong> <p>Melakukan normalisasi atau standardisasi fitur sebelum clustering, terutama untuk metode berbasis jarak.</p></li>
+            <li><strong>Dimensionality Reduction:</strong> <p>Menggunakan PCA atau t-SNE untuk mengurangi dimensi data berdimensi tinggi.</p></li>
+            <li><strong>Try Multiple Algorithms:</strong> <p>Tidak ada algoritma clustering yang selalu paling baik. Perlu mencoba beberapa metode dan membandingkan hasilnya.</p></li>
+            <li><strong>Domain Knowledge:</strong> <p>Memvalidasi hasil clustering menggunakan pengetahuan domain agar hasilnya relevan secara konteks.</p></li>
+            <li><strong>Visualize Results:</strong> <p>Memvisualisasikan cluster menggunakan scatter plot, dendrogram, atau teknik reduksi dimensi.</p></li>
+        </ul>
+    </div>
+
+</div>

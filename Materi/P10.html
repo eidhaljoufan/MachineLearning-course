@@ -1,0 +1,85 @@
+<h2>Pertemuan 10 — Decision Trees dan Integrasi Flask</h2>
+
+<p>
+   <strong>Decision Tree</strong> adalah algoritma <em>supervised learning</em> yang menggunakan struktur hierarki seperti pohon untuk mengambil keputusan. 
+   Algoritma ini sangat populer di kalangan praktisi data karena sifatnya yang <em>interpretable</em>, artinya manusia dapat dengan mudah memahami logika di balik setiap prediksi yang dihasilkan oleh model. 
+</p>
+
+<div class="materi-container"> 
+    <h3>Mekanisme Kerja Decision Tree</h3> 
+    <p> Dalam membangun pohon keputusan, algoritma melakukan pembagian data (<em>splitting</em>) secara rekursif berdasarkan fitur yang paling informatif. 
+        Proses ini melibatkan beberapa konsep kunci: 
+    </p> 
+        <ul class="list"> 
+            <li><strong>Root Node:</strong><p>Titik awal yang mewakili seluruh populasi data dan fitur pertama yang paling signifikan untuk membagi data.</p></li> 
+            <li><strong>Entropy & Information Gain:</strong><p>Metrik statistik yang digunakan untuk mengukur "kekacauan" data. Fitur dengan <em>Information Gain</em> tertinggi akan dipilih sebagai titik pemisah.</p></li> 
+            <li><strong>Gini Impurity:</strong><p>Indikator alternatif (sering digunakan oleh library Scikit-Learn) untuk mengukur seberapa sering elemen yang dipilih secara acak akan salah diklasifikasikan.</p></li> 
+            <li><strong>Leaf Node:</strong><p>Node akhir yang memberikan output prediksi (label kelas atau nilai kontinu) dan tidak dapat dibagi lagi.</p></li> 
+        </ul>
+
+    <h3>K-Nearest Neighbors (KNN) secara Singkat</h3>
+    <p>
+        Berbeda dengan Decision Tree yang membangun aturan logis, <strong>KNN</strong> bekerja berdasarkan prinsip kemiripan jarak. Model ini mengklasifikasikan data baru dengan mencari <em>k</em> tetangga terdekat dalam ruang fitur menggunakan metrik seperti <em>Euclidean Distance</em>. KNN sangat efektif untuk data dengan pola lokal yang kuat namun memiliki biaya komputasi yang tinggi pada dataset besar.
+    </p>
+
+    <h3>Integrasi Model ke dalam Web Flask</h3>
+    <p>
+        Untuk mentransformasi model Machine Learning menjadi produk digital, kita menggunakan <strong>Flask</strong>, sebuah <em>micro-framework</em> berbasis Python. Proses integrasinya meliputi:
+    </p>
+    <ol>
+        <li>
+            <strong>Model Serialization:</strong>
+            <p>Menyimpan model yang telah dilatih (misal: Decision Tree) ke dalam format file <code>.pkl</code> menggunakan library <em>Pickle</em> atau <em>Joblib</em>.</p>
+        </li>
+        <li>
+            <strong>API Routing:</strong>
+            <p>Membuat <em>route</em> pada Flask yang menerima input data dari form HTML melalui metode POST.</p>
+        </li>
+        <li>
+            <strong>Inference:</strong>
+            <p>Memuat kembali model di dalam server Flask, melakukan prediksi terhadap input user, dan mengirimkan hasilnya kembali ke <em>frontend</em> untuk ditampilkan.</p>
+        </li>
+    </ol>
+
+
+
+    <h3>Implementasi Dasar Decision Tree</h3>
+    <pre> from sklearn.tree import DecisionTreeClassifier from sklearn import tree import matplotlib.pyplot as plt
+
+    Inisialisasi Model dengan kriteria Gini
+    clf = DecisionTreeClassifier(criterion='gini', max_depth=3)
+
+    Pelatihan Model
+    clf.fit(X_train, y_train)
+
+    Visualisasi Struktur Pohon
+    plt.figure(figsize=(12,8)) tree.plot_tree(clf, filled=True, feature_names=feature_cols) plt.show() </pre>
+
+    <h3>Analisis Kelebihan dan Kekurangan</h3>
+    <table class="python-table">
+        <thead>
+            <tr>
+                <th>Aspek</th>
+                <th>Kelebihan</th>
+                <th>Kekurangan</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Interpretabilitas</td>
+                <td>Sangat mudah dijelaskan secara visual (<em>White-box model</em>).</td>
+                <td>Gampang mengalami <em>Overfitting</em> jika pohon terlalu dalam.</td>
+            </tr>
+            <tr>
+                <td>Data Preparation</td>
+                <td>Tidak membutuhkan normalisasi atau standardisasi data.</td>
+                <td>Sensitif terhadap perubahan kecil pada data (Instabilitas).</td>
+            </tr>
+            <tr>
+                <td>Kompleksitas</td>
+                <td>Mampu menangani fitur numerik dan kategorikal sekaligus.</td>
+                <td>Bisa menghasilkan pohon yang sangat kompleks dan sulit dibaca.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

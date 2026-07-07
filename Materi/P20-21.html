@@ -1,0 +1,274 @@
+<h2>Pertemuan 20 & 21 — Object Segmentation</h2>
+
+<p>
+    <strong>Object Segmentation</strong> adalah task lanjutan dalam computer vision yang bertujuan untuk memisahkan objek secara presisi hingga ke tingkat piksel. Berbeda dengan object detection yang hanya memberikan bounding box, segmentation mampu menentukan bentuk asli objek dengan akurasi tinggi.
+</p>
+
+<p>
+    Segmentasi objek sangat penting dalam aplikasi yang membutuhkan pemahaman visual yang detail, seperti medical imaging, autonomous driving, robotics, dan image editing. Pada pertemuan ini, pembahasan difokuskan pada konsep dasar, perbandingan dengan task visi komputer lain, serta pengenalan metode dan alur praktik object segmentation.
+</p>
+
+<div class="materi-container">
+
+    <h3>Posisi Object Segmentation dalam Visi Komputer</h3>
+    <p>
+        Dalam visi komputer, terdapat beberapa task utama yang memiliki tingkat kompleksitas dan keluaran yang berbeda. Object segmentation merupakan task dengan tingkat detail tertinggi karena bekerja pada level piksel.
+    </p>
+
+    <h3>Perbandingan Task dalam Visi Komputer</h3>
+    <table class="python-table">
+        <thead>
+            <tr>
+                <th>Tugas Visi Komputer</th>
+                <th>Keluaran</th>
+                <th>Tingkat Detail</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Image Classification</strong><br>(Klasifikasi Gambar)</td>
+                <td>Label tunggal untuk seluruh gambar</td>
+                <td>
+                    Menjawab pertanyaan <em>apa</em> yang ada di dalam gambar 
+                    (misalnya: "Kucing").
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Object Detection</strong><br>(Deteksi Objek)</td>
+                <td>
+                    Bounding box (kotak pembatas) di sekitar setiap objek 
+                    beserta label kelasnya.
+                </td>
+                <td>
+                    Menjawab <em>apa</em> dan <em>di mana</em> objek berada 
+                    (misalnya: kotak di sekeliling kucing).
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Object Segmentation</strong><br>(Segmentasi Objek)</td>
+                <td>
+                    Segmentation mask yang menentukan batas objek secara presisi 
+                    pada tingkat piksel.
+                </td>
+                <td>
+                    Menentukan <em>bentuk dan batas pasti</em> objek 
+                    (misalnya: setiap piksel tubuh kucing diwarnai).
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Apa itu Object Segmentation?</h3>
+    <p>
+        Object segmentation bertujuan untuk mengklasifikasikan setiap piksel dalam sebuah gambar. Setiap piksel ditentukan apakah termasuk ke dalam objek tertentu atau ke background. Dengan pendekatan ini, sistem dapat memahami struktur visual gambar secara jauh lebih detail dibanding detection.
+    </p>
+
+    <h3>Jenis-Jenis Segmentasi</h3>
+    <div class="list">
+        <ul>
+            <li>
+                <strong>Semantic Segmentation:</strong>
+                <p>
+                    Mengklasifikasikan setiap piksel ke dalam suatu kelas, 
+                    tetapi tidak membedakan antar instance objek yang sama. 
+                    Semua objek dengan kelas sama akan memiliki warna mask yang sama.
+                </p>
+            </li>
+            <li>
+                <strong>Instance Segmentation:</strong>
+                <p>
+                    Membedakan setiap instance objek meskipun berasal dari kelas yang sama. 
+                    Contoh: dua kucing akan memiliki mask yang berbeda.
+                </p>
+            </li>
+            <li>
+                <strong>Panoptic Segmentation:</strong>
+                <p>
+                    Kombinasi antara semantic dan instance segmentation. 
+                    Semua piksel diklasifikasikan, dan setiap instance juga dibedakan secara individual.
+                </p>
+            </li>
+        </ul>
+    </div>
+
+    <h3>Algoritma dan Model untuk Object Segmentation</h3>
+    <p>
+        Berbagai algoritma deep learning telah dikembangkan untuk menyelesaikan task segmentation. 
+        Sebagian besar metode modern menggunakan arsitektur convolutional neural networks (CNN).
+    </p>
+
+    <div class="list">
+        <ul>
+            <li><strong>FCN (Fully Convolutional Network):</strong> <p>Arsitektur awal untuk semantic segmentation yang mengganti fully connected layer dengan convolution.</p></li>
+            <li><strong>U-Net:</strong> <p>Banyak digunakan pada medical imaging, memiliki encoder–decoder dengan skip connections.</p></li>
+            <li><strong>Mask R-CNN:</strong> <p>Extension dari Faster R-CNN yang menambahkan branch khusus untuk segmentation mask.</p></li>
+            <li><strong>YOLOv8 Segmentation:</strong> <p>Versi YOLO yang mendukung segmentation dengan kecepatan tinggi dan akurasi baik.</p></li>
+        </ul>
+    </div>
+
+    <h3>Alur Umum Object Segmentation</h3>
+    <div class="list">
+        <ol>
+            <li><strong>Input Image:</strong> <p>Gambar dimasukkan ke dalam model segmentation.</p></li>
+            <li><strong>Feature Extraction:</strong> <p>Model CNN mengekstraksi fitur visual dari gambar.</p></li>
+            <li><strong>Pixel-wise Prediction:</strong> <p>Setiap piksel diprediksi kelas atau instance-nya.</p></li>
+            <li><strong>Segmentation Mask:</strong> <p>Hasil akhir berupa mask yang menunjukkan area objek.</p></li>
+        </ol>
+    </div>
+
+    <h3>Aplikasi Object Segmentation</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Medical Imaging:</strong> <p>Segmentasi organ atau tumor pada CT-scan dan MRI.</p></li>
+            <li><strong>Autonomous Driving:</strong> <p>Memahami jalan, kendaraan, pejalan kaki secara detail.</p></li>
+            <li><strong>Industrial Inspection:</strong> <p>Mendeteksi cacat produk secara presisi.</p></li>
+            <li><strong>Image Editing:</strong> <p>Background removal dan object manipulation.</p></li>
+            <li><strong>Robotics:</strong> <p>Object grasping dan navigation berbasis visual.</p></li>
+        </ul>
+    </div>
+
+    <h3>Tujuan Pembelajaran Pertemuan 20 – 21</h3>
+    <p>
+        Setelah mempelajari materi ini, diharapkan mampu memahami perbedaan mendasar antara classification, detection, dan segmentation, mengenali jenis-jenis object segmentation, serta memahami alur kerja dan penerapannya sebelum masuk ke tahap praktik implementasi menggunakan model deep learning.
+    </p>
+
+</div>
+
+<h2>Alur Pengerjaan Proyek Real-Time Detection Gunting-Batu-Kertas</h2>
+
+<p>
+    Proyek ini membahas alur pengerjaan proyek real-time object detection yang telah dilakukan, 
+    yaitu sistem deteksi <strong>Gunting – Batu – Kertas</strong> menggunakan dataset buatan sendiri.
+    Fokus pembahasan diarahkan pada proses persiapan data, pelabelan, training model, 
+    hingga pengujian deteksi secara real-time menggunakan kamera.
+</p>
+
+<div class="materi-container">
+
+    <h3>Gambaran Umum Proyek</h3>
+    <p>
+        Sistem yang dibangun bertujuan untuk mengenali gesture tangan 
+        <em>gunting, batu, dan kertas</em> secara langsung melalui webcam. 
+        Model dilatih menggunakan dataset kustom yang dibuat sendiri 
+        dan diberi label menggunakan platform Roboflow.
+    </p>
+
+    <h3>Spesifikasi Dataset</h3>
+    <table class="python-table">
+        <thead>
+            <tr>
+                <th>Komponen</th>
+                <th>Keterangan</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Jumlah Kelas</td>
+                <td>3 (Gunting, Batu, Kertas)</td>
+            </tr>
+            <tr>
+                <td>Jumlah Data</td>
+                <td>± 1000 gambar</td>
+            </tr>
+            <tr>
+                <td>Sumber Data</td>
+                <td>Dataset download dari kumpulan gambar Gunting-Batu-Kertas di roboflow/kaggle</td>
+            </tr>
+            <tr>
+                <td>Pelabelan</td>
+                <td>Roboflow (Bounding Box Annotation)</td>
+            </tr>
+            <tr>
+                <td>Format Dataset</td>
+                <td>YOLO Format</td>
+            </tr>
+        </tbody>
+    </table>
+
+    
+    <div class="list">
+        <ol>
+            <li>
+                <strong>Pengumpulan Dataset</strong>
+                <p>
+                    Data dikumpulkan secara mandiri dengan mengambil gambar gesture tangan 
+                    gunting, batu, dan kertas. Variasi posisi tangan, jarak kamera, 
+                    pencahayaan, dan sudut pengambilan diperhatikan agar model tidak overfitting.
+                </p>
+            </li>
+
+            <li>
+                <strong>Upload Dataset ke Roboflow</strong>
+                <p>
+                    Seluruh gambar mentah diunggah ke platform Roboflow untuk memudahkan 
+                    proses anotasi dan manajemen dataset.
+                </p>
+            </li>
+
+            <li>
+                <strong>Proses Pelabelan (Annotation)</strong>
+                <p>
+                    Setiap gambar diberi bounding box sesuai kelas gesture 
+                    (gunting, batu, atau kertas). 
+                    Pelabelan dilakukan secara konsisten untuk menjaga kualitas dataset.
+                </p>
+            </li>
+
+            <li>
+                <strong>Preprocessing dan Augmentasi Data</strong>
+                <p>
+                    Roboflow digunakan untuk melakukan augmentasi seperti rotasi, 
+                    perubahan brightness, flipping, dan scaling. 
+                    Tahap ini bertujuan meningkatkan generalisasi model saat training.
+                </p>
+            </li>
+
+            <li>
+                <strong>Export Dataset ke Format YOLO</strong>
+                <p>
+                    Dataset diekspor dalam format YOLO yang berisi direktori 
+                    <code>train</code>, <code>val</code>, dan <code>test</code>, 
+                    serta file <code>data.yaml</code> sebagai konfigurasi dataset.
+                </p>
+            </li>
+
+            <li>
+                <strong>Training Model Object Detection</strong>
+                <p>
+                    Model YOLO dilatih menggunakan dataset tersebut. 
+                    Proses training melibatkan penentuan epoch, batch size, 
+                    dan pemilihan model (misalnya YOLOv8). 
+                    Semakin banyak epoch, semakin lama waktu training, 
+                    tetapi berpotensi meningkatkan akurasi.
+                </p>
+            </li>
+
+            <li>
+                <strong>Evaluasi Hasil Training</strong>
+                <p>
+                    Model dievaluasi menggunakan metrik seperti 
+                    <em>precision</em>, <em>recall</em>, dan <em>mAP</em>. 
+                    Visualisasi hasil deteksi pada data validasi juga diperiksa 
+                    untuk memastikan bounding box sudah sesuai.
+                </p>
+            </li>
+
+            <li>
+                <strong>Implementasi Real-Time Detection</strong>
+                <p>
+                    Model hasil training digunakan untuk inference real-time 
+                    melalui webcam. Sistem menampilkan bounding box dan label 
+                    kelas secara langsung saat gesture tangan terdeteksi.
+                </p>
+            </li>
+        </ol>
+    </div>
+
+     <h3>Hasil yang Diharapkan</h3>
+    <p>
+        Dengan mengikuti alur pengerjaan ini, sistem diharapkan mampu 
+        mendeteksi gesture gunting, batu, dan kertas secara real-time 
+        dengan tingkat akurasi yang stabil dan respons yang cepat.
+    </p>
+
+</div>

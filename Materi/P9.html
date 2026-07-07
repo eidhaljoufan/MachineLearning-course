@@ -1,0 +1,86 @@
+<h2>Pertemuan 9 — Evaluasi Model Machine Learning</h2>
+
+<p> <strong>Evaluasi Model</strong> merupakan tahapan kritis untuk menentukan sejauh mana model <em>Machine Learning</em> mampu melakukan generalisasi terhadap data yang belum pernah dilihat sebelumnya (<em>unseen data</em>). Tanpa evaluasi yang komprehensif, model berisiko memberikan hasil yang tampak akurat namun gagal total saat diimplementasikan pada skenario dunia nyata. </p>
+
+<div class="materi-container"> 
+    <h3>Masalah Utama: Overfitting dan Underfitting</h3> 
+    <p> Dalam proses pelatihan, model seringkali terjebak dalam dua kondisi ekstrem yang merusak performa prediktifnya:</p> 
+        <ul class="list"> 
+            <li><strong>Overfitting:</strong> Kondisi di mana model terlalu "menghafal" detail dan <em>noise</em> pada data latih secara berlebihan. Akurasi pada data latih sangat tinggi, namun akurasi pada data uji sangat rendah.</li> 
+            <li><strong>Underfitting:</strong> Terjadi ketika model terlalu sederhana sehingga gagal menangkap pola fundamental dalam data. Akurasi rendah baik pada data latih maupun data uji.</li> 
+            <li><strong>The Bias-Variance Tradeoff:</strong> Tantangan untuk menyeimbangkan antara <em>Bias</em> (error karena asumsi yang terlalu simpel) dan <em>Variance</em> (sensitivitas berlebih terhadap fluktuasi data).</li> 
+        </ul>
+
+<h3>Teknik Evaluasi dan Validasi Data</h3>
+<p>
+    Untuk memitigasi masalah di atas, kita menggunakan berbagai metode pembagian data (<em>data splitting</em>) guna menguji ketangguhan model secara objektif:
+</p>
+
+<ol class="list">
+    <li>
+        <strong>Hold-out Method:</strong>
+        <p>Metode paling sederhana dengan membagi dataset secara permanen menjadi dua bagian: <em>Training Set</em> (untuk melatih) dan <em>Test Set</em> (untuk pengujian akhir). Kelemahannya adalah hasil evaluasi sangat bergantung pada bagaimana data tersebut dipisahkan.</p>
+    </li>
+    <li>
+        <strong>Train-Validation-Test Split:</strong>
+        <p>Pengembangan dari Hold-out dengan menambahkan <em>Validation Set</em>. Data validasi digunakan untuk menyetel hiperparameter selama proses pelatihan, sementara data uji tetap "suci" untuk evaluasi akhir.</p>
+    </li>
+    <li>
+        <strong>Cross Validation (K-Fold):</strong>
+        <p>Membagi data menjadi <em>k</em> bagian (fold). Model dilatih <em>k</em> kali, di mana setiap kali satu bagian menjadi data uji dan sisanya menjadi data latih. Hasil akhirnya adalah rata-rata dari seluruh iterasi, sehingga lebih stabil.</p>
+    </li>
+
+    
+
+    <li>
+        <strong>Time Series Cross-Validation:</strong>
+        <p>Teknik khusus untuk data yang bergantung pada waktu (seperti harga saham). Kita tidak bisa mengacak data secara random; kita harus menggunakan data masa lalu untuk memprediksi data masa depan secara berurutan (<em>Rolling Window</em>).</p>
+    </li>
+    <li>
+        <strong>Nested Cross-Validation:</strong>
+        <p>Metode evaluasi tingkat lanjut yang menggunakan dua lapisan Cross-Validation. Lapisan dalam (<em>inner loop</em>) untuk memilih parameter terbaik, dan lapisan luar (<em>outer loop</em>) untuk mengukur performa generalisasi model secara keseluruhan.</p>
+    </li>
+</ol>
+
+<h3>Metrik Evaluasi Utama</h3>
+<p>
+    Selain teknik pembagian data, kita menggunakan metrik numerik untuk mengukur presisi prediksi:
+</p>
+
+<table class="python-table">
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>Metrik</th>
+            <th>Fungsi Utama</th>
+            <th>Konteks Penggunaan</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Accuracy</td>
+            <td>Rasio prediksi benar terhadap total data.</td>
+            <td>Dataset dengan kelas seimbang.</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Precision & Recall</td>
+            <td>Mengukur ketepatan dan kelengkapan prediksi.</td>
+            <td>Klasifikasi dengan kelas tidak seimbang (Imbalanced).</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>F1-Score</td>
+            <td>Rata-rata harmonik antara Precision dan Recall.</td>
+            <td>Keseimbangan antara kesalahan Tipe I dan Tipe II.</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>MSE / RMSE</td>
+            <td>Mengukur rata-rata kuadrat kesalahan.</td>
+            <td>Evaluasi model Regresi.</td>
+        </tr>
+    </tbody>
+</table>
+</div>

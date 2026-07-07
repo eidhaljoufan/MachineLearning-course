@@ -1,0 +1,147 @@
+<h2>Pertemuan 3 — Supervised Learning</h2>
+
+<p>
+    <strong>Supervised Learning</strong> merupakan paradigma pembelajaran mesin yang paling umum digunakan dalam aplikasi praktis. 
+    Dalam pendekatan ini, model dilatih menggunakan dataset yang telah dilabeli, di mana setiap input (X) memiliki output (Y) yang sudah diketahui. Tujuan utamanya adalah membangun fungsi pemetaan f(X) → Y yang dapat memprediksi output untuk data baru yang belum pernah dilihat sebelumnya.
+</p>
+
+<div class="materi-container">
+
+    <h3>Karakteristik Supervised Learning</h3>
+    <p>
+        Supervised Learning memiliki beberapa karakteristik fundamental yang membedakannya dari paradigma pembelajaran lainnya:
+    </p>
+    <div class="list">
+        <ul>
+            <li><strong>Dataset Berlabel:</strong> <p>Setiap observasi dalam dataset memiliki pasangan input-output (X, Y) yang eksplisit, memungkinkan model untuk belajar dari contoh yang telah dikoreksi.</p></li>
+            <li><strong>Pembelajaran Terarah:</strong> <p>Model menerima feedback langsung melalui perbandingan antara prediksi dengan label sebenarnya, sehingga dapat mengoptimalkan parameter secara iteratif.</p></li>
+            <li><strong>Generalisasi:</strong> <p>Kemampuan model untuk membuat prediksi akurat pada data baru yang tidak terlihat selama fase pelatihan merupakan indikator kesuksesan utama.</p></li>
+            <li><strong>Fungsi Loss:</strong> <p>Proses pembelajaran dikendalikan oleh minimisasi fungsi kerugian (loss function) yang mengukur deviasi antara prediksi model dengan nilai aktual.</p></li>
+        </ul>
+    </div>
+
+    <h3>Kategorisasi Supervised Learning</h3>
+    <p>
+        Berdasarkan sifat variabel target (Y), Supervised Learning diklasifikasikan menjadi dua kategori utama yang memiliki perbedaan fundamental dalam hal output dan metode evaluasi:
+    </p>
+
+    <table class="python-table">
+        <thead>
+            <tr>
+                <th>Aspek</th>
+                <th>Klasifikasi</th>
+                <th>Regresi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Definisi</strong></td>
+                <td>Memetakan input ke dalam kategori atau kelas diskrit yang telah ditentukan sebelumnya.</td>
+                <td>Memetakan input ke nilai kontinu dalam rentang numerik tertentu.</td>
+            </tr>
+            <tr>
+                <td><strong>Tipe Output</strong></td>
+                <td>Nilai diskrit (kategorikal) seperti label kelas atau probabilitas kelas.</td>
+                <td>Nilai kontinu (numerik) dalam domain bilangan riil.</td>
+            </tr>
+            <tr>
+                <td><strong>Tujuan</strong></td>
+                <td>Memisahkan data ke dalam kategori atau kelas yang telah ditentukan sebelumnya dengan memaksimalkan akurasi klasifikasi.</td>
+                <td>Memperkirakan hubungan antara variabel input (fitur) dan variabel output (label) yang berupa nilai kontinu.</td>
+            </tr>
+            <tr>
+                <td><strong>Contoh Kasus</strong></td>
+                <td>Deteksi spam email (spam/non-spam), klasifikasi gambar hewan (kucing/anjing), diagnosa penyakit berdasarkan gejala.</td>
+                <td>Prediksi harga rumah berdasarkan fitur properti, estimasi suhu udara masa depan, proyeksi penjualan produk.</td>
+            </tr>
+            <tr>
+                <td><strong>Metrik Evaluasi</strong></td>
+                <td>Accuracy, Precision, Recall, F1-Score, Confusion Matrix, AUC-ROC.</td>
+                <td>Mean Absolute Error (MAE), Mean Squared Error (MSE), Root Mean Squared Error (RMSE), R-squared (R²).</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>1. Klasifikasi (Classification)</h3>
+    <p>
+        Klasifikasi adalah tugas untuk memisahkan data ke dalam kategori atau kelas yang telah ditentukan sebelumnya. Model klasifikasi mempelajari batas keputusan (decision boundary) yang memisahkan kelas-kelas dalam ruang fitur.
+    </p>
+    
+    <p><strong>Tujuan:</strong> Memisahkan data ke dalam kategori atau kelas yang telah ditentukan sebelumnya dengan memaksimalkan akurasi prediksi kelas.</p>
+    
+    <p><strong>Output:</strong> Output dari model klasifikasi adalah nilai diskrit, yaitu kelas atau kategori tertentu. Contohnya, dalam klasifikasi biner, outputnya bisa berupa "0" atau "1", "spam" atau "non-spam", "positif" atau "negatif".</p>
+    
+    <p><strong>Contoh Aplikasi:</strong> Mendeteksi apakah email adalah spam atau tidak, mengklasifikasikan gambar sebagai kucing atau anjing, memprediksi jenis penyakit berdasarkan gejala pasien, identifikasi fraud dalam transaksi keuangan.</p>
+
+    <p><strong>Algoritma Populer:</strong></p>
+    <div class="list">
+        <ul>
+            <li><strong>K-Nearest Neighbors (KNN):</strong> <p>Mengklasifikasikan data berdasarkan mayoritas kelas dari K tetangga terdekat dalam ruang fitur.</p></li>
+            <li><strong>Decision Tree:</strong> <p>Membangun struktur pohon keputusan berdasarkan aturan pemisahan fitur untuk mencapai klasifikasi.</p></li>
+            <li><strong>Support Vector Machine (SVM):</strong> <p>Mencari hyperplane optimal yang memaksimalkan margin pemisah antar kelas.</p></li>
+            <li><strong>Naive Bayes:</strong> <p>Menerapkan teorema Bayes dengan asumsi independensi antar fitur untuk menghitung probabilitas kelas.</p></li>
+            <li><strong>Random Forest:</strong> <p>Ensemble learning yang menggabungkan multiple decision trees untuk meningkatkan akurasi dan mengurangi overfitting.</p></li>
+            <li><strong>Neural Networks:</strong> <p>Menggunakan arsitektur jaringan saraf tiruan dengan multiple layers untuk pembelajaran representasi kompleks.</p></li>
+        </ul>
+    </div>
+
+    <h3>2. Regresi (Regression)</h3>
+    <p>
+        Regresi adalah tugas untuk memperkirakan hubungan matematis antara variabel input (fitur) dan variabel output (label) yang berupa nilai kontinu. Model regresi menghasilkan fungsi yang dapat memprediksi nilai numerik dalam rentang tertentu.
+    </p>
+    
+    <p><strong>Tujuan:</strong> Memperkirakan hubungan antara variabel input (fitur) dan variabel output (label), yang berupa nilai kontinu, serta meminimalkan error prediksi.</p>
+    
+    <p><strong>Output:</strong> Output dari model regresi adalah nilai numerik yang kontinu. Ini berarti model memprediksi nilai dalam rentang tertentu, bukan kategori. Output dapat berupa bilangan real positif, negatif, atau desimal.</p>
+    
+    <p><strong>Contoh Aplikasi:</strong> Memprediksi harga rumah berdasarkan fitur seperti luas tanah, jumlah kamar, dan lokasi, memperkirakan suhu udara di masa depan berdasarkan data historis, proyeksi nilai saham, estimasi permintaan produk.</p>
+
+    <p><strong>Algoritma Populer:</strong></p>
+    <div class="list">
+        <ul>
+            <li><strong>Linear Regression:</strong> <p>Membangun hubungan linear antara variabel independen dan dependen menggunakan metode least squares.</p></li>
+            <li><strong>Polynomial Regression:</strong> <p>Ekstensi dari linear regression yang dapat menangkap hubungan non-linear melalui transformasi polinomial fitur.</p></li>
+            <li><strong>Ridge Regression (L2 Regularization):</strong> <p>Menambahkan penalty term untuk mengurangi kompleksitas model dan mencegah overfitting.</p></li>
+            <li><strong>Lasso Regression (L1 Regularization):</strong> <p>Regularisasi yang dapat melakukan feature selection dengan membuat beberapa koefisien menjadi nol.</p></li>
+            <li><strong>Support Vector Regression (SVR):</strong> <p>Adaptasi SVM untuk tugas regresi dengan mencari fungsi yang berada dalam margin toleransi error.</p></li>
+            <li><strong>Decision Tree Regression:</strong> <p>Menggunakan struktur pohon untuk membagi ruang fitur dan memprediksi nilai kontinu pada setiap leaf node.</p></li>
+        </ul>
+    </div>
+
+    <h3>Proses Supervised Learning</h3>
+    <p>
+        Implementasi Supervised Learning mengikuti alur sistematis yang terdiri dari beberapa fase kunci:
+    </p>
+    <div class="list">
+        <ol>
+            <li><strong>Data Collection & Labeling:</strong> <p>Pengumpulan dataset dengan label yang akurat dan representatif terhadap distribusi masalah nyata.</p></li>
+            <li><strong>Data Splitting:</strong> <p>Pemisahan dataset menjadi training set (70-80%), validation set (10-15%), dan test set (10-15%) untuk evaluasi objektif.</p></li>
+            <li><strong>Model Training:</strong> <p>Algoritma mempelajari pola dari training data dengan mengoptimalkan fungsi loss melalui iterasi.</p></li>
+            <li><strong>Model Validation:</strong> <p>Evaluasi performa model pada validation set untuk tuning hyperparameter dan mencegah overfitting.</p></li>
+            <li><strong>Model Testing:</strong> <p>Evaluasi final pada test set yang sepenuhnya unseen untuk mengukur kemampuan generalisasi model.</p></li>
+            <li><strong>Prediction:</strong> <p>Deployment model untuk melakukan inferensi pada data baru dalam environment produksi.</p></li>
+        </ol>
+    </div>
+
+    <h3>Keuntungan Supervised Learning</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Akurasi Tinggi:</strong> <p>Dengan data training yang berkualitas dan representatif, model dapat mencapai tingkat akurasi yang sangat baik.</p></li>
+            <li><strong>Interpretabilitas:</strong> <p>Beberapa algoritma seperti Decision Tree dan Linear Regression memiliki transparansi dalam proses pengambilan keputusan.</p></li>
+            <li><strong>Aplikabilitas Luas:</strong> <p>Dapat diterapkan pada berbagai domain seperti finance, healthcare, marketing, dan computer vision.</p></li>
+            <li><strong>Metrik Evaluasi Jelas:</strong> <p>Terdapat berbagai metrik standar yang well-established untuk mengukur performa model secara objektif.</p></li>
+        </ul>
+    </div>
+
+    <h3>Keterbatasan Supervised Learning</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Ketergantungan pada Labeled Data:</strong> <p>Membutuhkan dataset berlabel dalam jumlah besar yang seringkali mahal dan time-consuming untuk diperoleh.</p></li>
+            <li><strong>Overfitting:</strong> <p>Model dapat terlalu fit pada training data sehingga performa pada data baru menurun drastis.</p></li>
+            <li><strong>Bias dalam Data:</strong> <p>Jika training data tidak representatif atau mengandung bias, model akan mereproduksi bias tersebut dalam prediksi.</p></li>
+            <li><strong>Keterbatasan Generalisasi:</strong> <p>Model mungkin tidak dapat beradaptasi dengan baik terhadap data yang memiliki distribusi berbeda dari training data (concept drift).</p></li>
+            <li><strong>Computational Cost:</strong> <p>Pelatihan model pada dataset besar dengan algoritma kompleks memerlukan resource komputasi yang signifikan.</p></li>
+        </ul>
+    </div>
+
+</div>

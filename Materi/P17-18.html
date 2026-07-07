@@ -1,0 +1,125 @@
+<h2>Pertemuan 17 & 18 — Object Detection & Deteksi APD</h2>
+
+<p>
+    <strong>Object Detection</strong> adalah tugas computer vision yang bertujuan untuk mengidentifikasi dan melokalisasi objek dalam gambar atau video. Berbeda dengan image classification yang hanya memberikan label untuk keseluruhan gambar, object detection menghasilkan bounding box yang menunjukkan posisi spesifik dari setiap objek yang terdeteksi beserta label kelasnya. Tugas ini menggabungkan dua permasalahan utama, yaitu classification (menentukan objek apa yang ada) dan localization (menentukan lokasi objek).
+</p>
+
+<div class="materi-container">
+
+    <h3>Konsep Dasar Object Detection</h3>
+    <p>
+        Object detection menghasilkan output berupa beberapa bounding box, di mana setiap kotak didefinisikan oleh koordinat (x, y, width, height), label kelas, dan confidence score yang menunjukkan seberapa yakin model bahwa objek tersebut benar-benar ada di dalam kotak tersebut. Model harus mampu mendeteksi banyak objek dalam satu gambar, menangani objek dengan berbagai skala dan rasio aspek, serta membedakan objek yang saling tumpang tindih.
+    </p>
+
+    <h3>Arsitektur Object Detection</h3>
+    <p>
+        Model object detection dapat dikategorikan menjadi dua paradigma utama:
+    </p>
+    <div class="list">
+        <ul>
+            <li><strong>Two-Stage Detectors:</strong> <p>Proses deteksi dipisahkan menjadi tahap region proposal dan classification. Tahap pertama menghasilkan kandidat lokasi objek, kemudian tahap kedua melakukan klasifikasi dan penyempurnaan lokasi tersebut. Contoh: R-CNN, Fast R-CNN, Faster R-CNN. Umumnya memiliki akurasi lebih tinggi tetapi waktu pemrosesan lebih lambat.</p></li>
+            <li><strong>One-Stage Detectors:</strong> <p>Melakukan deteksi dalam satu kali proses. Bounding box dan kelas objek diprediksi secara langsung dari fitur gambar tanpa tahap region proposal terpisah. Contoh: YOLO (You Only Look Once), SSD (Single Shot Detector), RetinaNet. Lebih cepat dan cocok untuk aplikasi real-time, dengan selisih akurasi yang semakin kecil berkat inovasi terbaru.</p></li>
+        </ul>
+    </div>
+
+    <h3>YOLO (You Only Look Once)</h3>
+    <p>
+        YOLO merupakan salah satu arsitektur object detection paling populer karena mampu menyeimbangkan kecepatan dan akurasi. YOLO membagi gambar menjadi beberapa sel grid, di mana setiap sel bertanggung jawab untuk memprediksi bounding box dan probabilitas kelas untuk objek yang pusatnya berada di dalam sel tersebut. Arsitektur ini sangat cepat karena menggunakan pendekatan satu tahap dan mampu melakukan deteksi secara real-time.
+    </p>
+    <p><strong>Komponen Kunci YOLO:</strong></p>
+    <div class="list">
+        <ul>
+            <li><strong>Grid Division:</strong> <p>Gambar dibagi menjadi grid berukuran S×S. Setiap sel grid memprediksi beberapa bounding box dan confidence score.</p></li>
+            <li><strong>Bounding Box Prediction:</strong> <p>Setiap kotak diprediksi menggunakan lima nilai, yaitu x dan y sebagai koordinat pusat, w dan h sebagai lebar dan tinggi, serta confidence score.</p></li>
+            <li><strong>Class Prediction:</strong> <p>Setiap sel grid juga memprediksi probabilitas kelas bersyarat untuk sejumlah kelas objek.</p></li>
+            <li><strong>Non-Maximum Suppression (NMS):</strong> <p>Tahap pasca-pemrosesan untuk menghilangkan deteksi ganda. Bounding box dengan tingkat tumpang tindih tinggi dan confidence score lebih rendah akan dihapus.</p></li>
+        </ul>
+    </div>
+    <p><strong>YOLO Versions:</strong> YOLO berkembang dari versi awal hingga YOLOv8 dan versi terbaru dengan peningkatan berkelanjutan pada akurasi dan kecepatan. YOLOv5 dan YOLOv8 saat ini banyak digunakan dalam aplikasi produksi.</p>
+
+    <h3>Evaluasi Object Detection</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Intersection over Union (IoU):</strong> <p>Mengukur tingkat tumpang tindih antara bounding box hasil prediksi dan bounding box ground truth. Nilai IoU berada pada rentang 0 hingga 1, dengan ambang batas umum sebesar 0.5 untuk menentukan deteksi yang benar.</p></li>
+            <li><strong>Precision:</strong> <p>Menunjukkan proporsi bounding box hasil prediksi yang benar dibandingkan seluruh prediksi yang dihasilkan.</p></li>
+            <li><strong>Recall:</strong> <p>Menunjukkan proporsi objek sebenarnya yang berhasil terdeteksi oleh model.</p></li>
+            <li><strong>mAP (mean Average Precision):</strong> <p>Merupakan metrik utama dalam object detection yang menghitung rata-rata average precision dari setiap kelas objek. mAP@0.5 menggunakan ambang IoU 0.5, sedangkan mAP@0.5:0.95 merupakan rata-rata dari beberapa ambang IoU.</p></li>
+        </ul>
+    </div>
+
+    <h3>Proyek: Deteksi Alat Pelindung Diri (APD)</h3>
+    <p>
+        Deteksi APD merupakan penerapan penting dari object detection dalam konteks keselamatan kerja. Sistem ini bertujuan untuk mendeteksi secara otomatis apakah pekerja menggunakan alat pelindung diri yang diwajibkan seperti helm, rompi keselamatan, sarung tangan, kacamata pelindung, dan sepatu keselamatan. Otomatisasi ini penting untuk memastikan kepatuhan terhadap peraturan keselamatan dan mencegah kecelakaan kerja.
+    </p>
+
+    <h3>Motivasi dan Tujuan Proyek</h3>
+    <p>
+        Kecelakaan kerja sering terjadi akibat ketidakpatuhan terhadap prosedur keselamatan. Pemantauan manual oleh petugas keselamatan memiliki keterbatasan dan rentan terhadap kesalahan manusia. Sistem deteksi APD otomatis dapat menyediakan pemantauan real-time, memberikan peringatan instan terhadap pelanggaran, mencatat tingkat kepatuhan, serta secara signifikan menurunkan risiko kecelakaan kerja. Sistem ini sangat relevan untuk industri seperti konstruksi, manufaktur, pertambangan, serta minyak dan gas.
+    </p>
+
+    <h3>Dataset dan Preprocessing</h3>
+    <p>
+        Untuk melatih model deteksi APD, dibutuhkan dataset yang berisi gambar atau cuplikan video pekerja dalam berbagai kondisi, baik menggunakan maupun tidak menggunakan APD. Dataset harus diberi anotasi bounding box dan label untuk setiap item APD. Tahap preprocessing meliputi penyesuaian ukuran gambar, normalisasi, serta augmentasi data seperti rotasi, penyesuaian kecerahan, dan flipping untuk meningkatkan jumlah data dan ketahanan model.
+    </p>
+
+    <h3>Classes dalam Deteksi APD</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Helmet/Hard Hat:</strong> <p>Melindungi kepala dari benda jatuh atau benturan. Sangat penting di lokasi konstruksi.</p></li>
+            <li><strong>Safety Vest:</strong> <p>Pakaian dengan visibilitas tinggi untuk memastikan pekerja mudah terlihat, terutama pada kondisi cahaya rendah.</p></li>
+            <li><strong>Safety Glasses/Goggles:</strong> <p>Melindungi mata dari serpihan, bahan kimia, atau cahaya terang.</p></li>
+            <li><strong>Gloves:</strong> <p>Melindungi tangan dari luka, bahan kimia, panas, atau bahaya listrik.</p></li>
+            <li><strong>Safety Boots:</strong> <p>Melindungi kaki dari benda berat, material tajam, atau bahaya listrik.</p></li>
+            <li><strong>Mask/Respirator:</strong> <p>Melindungi sistem pernapasan dari debu, asap, atau gas berbahaya.</p></li>
+        </ul>
+    </div>
+
+    <h3>Arsitektur Model untuk Deteksi APD</h3>
+    <p>
+        Arsitektur YOLO sangat cocok untuk deteksi APD karena kemampuannya dalam pemrosesan real-time. Model dapat diterapkan pada perangkat edge atau diintegrasikan dengan sistem CCTV yang sudah ada. Arsitektur YOLO terdiri dari backbone untuk ekstraksi fitur, neck untuk penggabungan fitur, dan head untuk proses deteksi.
+    </p>
+
+    <h3>Training Process</h3>
+    <div class="list">
+        <ol>
+            <li><strong>Data Preparation:</strong> <p>Membagi dataset menjadi data training, validation, dan testing dengan proporsi yang seimbang.</p></li>
+            <li><strong>Model Configuration:</strong> <p>Mengonfigurasi model YOLO sesuai jumlah kelas, ukuran input gambar, dan hyperparameter.</p></li>
+            <li><strong>Transfer Learning:</strong> <p>Menggunakan bobot pre-trained untuk mempercepat proses pelatihan dan meningkatkan performa model.</p></li>
+            <li><strong>Training:</strong> <p>Melatih model menggunakan GPU serta memantau metrik pelatihan untuk menghindari overfitting.</p></li>
+            <li><strong>Evaluation:</strong> <p>Menguji model pada data yang belum pernah dilihat dan menganalisis performa setiap kelas.</p></li>
+        </ol>
+    </div>
+
+    <h3>Tantangan dalam Deteksi APD</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Occlusion:</strong> <p>Beberapa APD dapat tertutup sebagian oleh objek lain atau orang lain.</p></li>
+            <li><strong>Varying Lighting Conditions:</strong> <p>Perbedaan kondisi pencahayaan pada area kerja dapat mempengaruhi hasil deteksi.</p></li>
+            <li><strong>Different Angles dan Poses:</strong> <p>Posisi dan sudut tubuh pekerja yang beragam menambah kompleksitas deteksi.</p></li>
+            <li><strong>Small Object Detection:</strong> <p>Beberapa APD berukuran kecil sehingga lebih sulit dideteksi.</p></li>
+            <li><strong>Class Imbalance:</strong> <p>Jumlah data antar kelas APD tidak selalu seimbang dan memerlukan penanganan khusus.</p></li>
+        </ul>
+    </div>
+
+    <h3>Deployment dan Integration</h3>
+    <p>
+        Model yang telah dilatih dapat diterapkan pada perangkat edge, sistem berbasis cloud, maupun aplikasi mobile. Integrasi sistem mencakup koneksi dengan infrastruktur CCTV, pengaturan sistem peringatan otomatis, serta pencatatan pelanggaran untuk kebutuhan pelaporan dan evaluasi keselamatan. Model juga dapat terus diperbarui menggunakan data baru untuk meningkatkan performa.
+    </p>
+
+    <h3>Pertimbangan Etika</h3>
+    <p>
+        Penerapan sistem deteksi APD harus memperhatikan aspek etika, seperti perlindungan privasi pekerja, transparansi penggunaan sistem, serta memastikan bahwa teknologi digunakan untuk meningkatkan keselamatan, bukan sebagai alat pengawasan yang bersifat menghukum.
+    </p>
+
+    <h3>Dampak dan manfaat</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Improved Safety:</strong> <p>Meningkatkan keselamatan kerja melalui pemantauan kepatuhan yang konsisten.</p></li>
+            <li><strong>Cost Reduction:</strong> <p>Mengurangi biaya akibat kecelakaan kerja dan downtime operasional.</p></li>
+            <li><strong>Scalability:</strong> <p>Mampu memantau banyak lokasi secara bersamaan tanpa kelelahan manusia.</p></li>
+            <li><strong>Data-Driven Insights:</strong> <p>Menyediakan data analitik untuk mendukung pengambilan keputusan.</p></li>
+            <li><strong>Real-time Alerts:</strong> <p>Memberikan peringatan secara langsung untuk tindakan korektif.</p></li>
+        </ul>
+    </div>
+
+</div>

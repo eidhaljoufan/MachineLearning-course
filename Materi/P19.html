@@ -1,0 +1,116 @@
+<h2>Pertemuan 19 — Real-Time Object Detection (Pen–Book Detection)</h2>
+
+<p>
+    <strong>Real-time object detection</strong> merupakan salah satu penerapan penting dalam computer vision yang bertujuan untuk mendeteksi dan melokalisasi objek secara langsung (live) dari input video atau kamera. Berbeda dengan image classification yang hanya menentukan kelas gambar, object detection memiliki dua tugas utama sekaligus, yaitu mengenali <em>apa objeknya</em> dan <em>di mana posisi objek tersebut</em> dalam bentuk bounding box.
+</p>
+
+<p>
+    Pada pertemuan ini, fokus deteksi diarahkan pada objek <strong>pulpen (pen)</strong> dan <strong>buku (book)</strong>. Kedua objek tersebut tergolong <em>small objects</em>, sehingga menimbulkan tantangan tersendiri dalam proses training dan pemilihan model deteksi yang tepat.
+</p>
+
+<div class="materi-container">
+
+    <h3>Pengenalan Object Detection dengan YOLO</h3>
+    <p>
+        YOLO (You Only Look Once) adalah algoritma object detection yang dirancang untuk kecepatan dan efisiensi tinggi. YOLO melakukan prediksi bounding box dan class probability dalam satu kali proses inferensi, sehingga sangat cocok untuk kebutuhan real-time detection seperti CCTV, autonomous system, dan webcam-based detection.
+    </p>
+    <p>
+        Dalam praktik ini digunakan <strong>YOLOv8</strong>, versi terbaru dari keluarga YOLO yang menawarkan peningkatan pada akurasi, stabilitas training, dan kemudahan integrasi dengan Python dan Jupyter Notebook.
+    </p>
+
+    <h3>Dataset Pen–Book Detection</h3>
+    <p>
+        Sebelum masuk ke tahap training dan pengujian model, dataset harus disiapkan dengan struktur yang benar. Dataset diperoleh dari Google Drive yang disediakan oleh dosen dengan nama <strong>PenBookDetection-1</strong>.
+    </p>
+
+    <p><strong>Langkah Persiapan Dataset:</strong></p>
+    <div class="list">
+        <ol>
+            <li><strong>Download Dataset:</strong> <p>Unduh dataset PenBookDetection-1 dari Google Drive yang diberikan dosen.</p></li>
+            <li><strong>Simpan ke Project:</strong> <p>Simpan dataset ke dalam folder <code>datasets/PenBookDetection-1</code>.</p></li>
+            <li><strong>Periksa Struktur Direktori:</strong> <p>Pastikan folder <code>train</code>, <code>val</code>, dan <code>test</code tersedia dan berisi subfolder <code>images</code> dan <code>labels</code>.</p></li>
+            <li><strong>Cek data.yaml:</strong> <p>Pastikan file <code>data.yaml</code> berisi path direktori train, val, dan test yang benar.</p></li>
+        </ol>
+    </div>
+
+    <h3>Struktur Dataset YOLO</h3>
+    <p>
+        YOLO sangat bergantung pada struktur direktori dataset. Kesalahan path atau struktur folder dapat menyebabkan training gagal meskipun file dataset sudah tersedia.
+    </p>
+
+    <h3>Perbandingan Model YOLO untuk Small Object Detection</h3>
+    <table class="python-table">
+        <thead>
+            <tr>
+                <th>Model YOLO</th>
+                <th>Karakteristik</th>
+                <th>Kelebihan</th>
+                <th>Kekurangan</th>
+                <th>Rekomendasi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>YOLOv8n (Nano)</strong></td>
+                <td>Model ringan dan cepat</td>
+                <td>Training cepat, cocok untuk testing awal</td>
+                <td>Kurang akurat untuk objek kecil seperti pulpen</td>
+                <td>Tidak disarankan untuk Pen–Book Detection</td>
+            </tr>
+            <tr>
+                <td><strong>YOLOv8c / Custom</strong></td>
+                <td>Model lebih kompleks</td>
+                <td>Akurasi lebih baik, detail objek kecil lebih tertangkap</td>
+                <td>Training lebih lama, butuh resource besar</td>
+                <td>Sangat disarankan</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Lingkungan Praktik dan Kebutuhan Hardware</h3>
+    <p>
+        Training model object detection membutuhkan resource komputasi yang cukup besar, terutama ketika dataset berisi banyak gambar dan jumlah epoch tinggi. Oleh karena itu, pemilihan lingkungan praktik sangat berpengaruh terhadap kelancaran proses training.
+    </p>
+
+    <h3>Praktik Menggunakan Jupyter Notebook (Windows Lokal)</h3>
+    <p><strong>Spesifikasi Minimum yang Disarankan:</strong></p>
+    <div class="list">
+        <ul>
+            <li><strong>GPU:</strong> <p>NVIDIA dengan CUDA support (minimal GTX 1660 atau setara).</p></li>
+            <li><strong>VRAM:</strong> <p>Minimal 6 GB.</p></li>
+            <li><strong>RAM:</strong> <p>Minimal 16 GB.</p></li>
+            <li><strong>Software:</strong> <p>CUDA, cuDNN, Python, Jupyter Notebook.</p></li>
+        </ul>
+    </div>
+
+    <p>
+        Tanpa GPU, training masih dapat dijalankan menggunakan CPU, namun waktu yang dibutuhkan bisa sangat lama dan tidak efisien untuk menyelesaikan epoch training secara penuh.
+    </p>
+
+    <h3>Alternatif Praktik: Google Colab</h3>
+    <p>
+        Jika perangkat lokal tidak memenuhi spesifikasi, <strong>Google Colab</strong> menjadi solusi yang sangat direkomendasikan. Colab menyediakan GPU secara gratis dan siap digunakan tanpa konfigurasi CUDA manual.
+    </p>
+
+    <div class="list">
+        <ul>
+            <li><strong>Kelebihan:</strong> <p>Mendukung GPU, mudah digunakan, cocok untuk training YOLO.</p></li>
+            <li><strong>Kekurangan:</strong> <p>Session terbatas dan file perlu di-upload ulang jika session berakhir.</p></li>
+        </ul>
+    </div>
+
+    <h3>Tujuan Praktik Pertemuan 19</h3>
+    <p>
+        Melalui pertemuan ini, diharapkan dapat memahami alur lengkap real-time object detection mulai dari persiapan dataset, pemilihan model YOLO yang sesuai, hingga kesiapan lingkungan komputasi sebelum masuk ke tahap praktik implementasi di Jupyter Notebook atau Google Colab.
+    </p>
+
+    <figure class="rtd">
+        <img src="images/RTD_pen-book.png" alt="setelah training" class="materi-image">
+        <figcaption>Gambar 1. Hasil Deteksi Objek Pulpen dan Buku menggunakan YOLOv8</figcaption>
+    </figure>
+
+    <p>
+        Best.pt yang sudah didapatkan dari hasil training dataset tersebut masih kurang akurat, karena ketika mendeteksi pulpen yang sedang saya pegang itu mesin masih menunjukkan keragu-raguan, yaitu 0.26.
+        Yang mana artinya model tersebut hanya 26% yakin bahwa objek yang dideteksi adalah pulpen.
+    </p>
+</div>

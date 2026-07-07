@@ -1,0 +1,147 @@
+<h2>Pertemuan 14 & 15 — Kategori Unsupervised Learning Lainnya</h2>
+
+<p>
+    Selain clustering, unsupervised learning mencakup beberapa kategori penting lainnya yang masing-masing memiliki tujuan dan aplikasi yang spesifik. Pada pertemuan ini akan dibahas tiga kategori utama, yaitu <strong>Dimensionality Reduction</strong> untuk menyederhanakan data yang kompleks, <strong>Association Rule Learning</strong> untuk menemukan hubungan antar variabel, serta <strong>Anomaly Detection</strong> untuk mengidentifikasi data yang tidak normal. Ketiga kategori ini memiliki peran yang sangat penting dalam berbagai domain aplikasi machine learning.
+</p>
+
+<div class="materi-container">
+
+    <h3>1. Dimensionality Reduction (Reduksi Dimensi)</h3>
+    <p>
+        Dimensionality reduction adalah proses mengurangi jumlah fitur (variabel) dalam sebuah dataset dengan tetap mempertahankan sebanyak mungkin informasi yang penting. Teknik ini sangat penting untuk mengatasi curse of dimensionality, mempercepat proses pelatihan model, mengurangi kebutuhan penyimpanan data, serta mempermudah visualisasi data berdimensi tinggi.
+    </p>
+
+    <h3>Curse of Dimensionality</h3>
+    <p>
+        Ketika jumlah fitur semakin meningkat, ruang fitur menjadi semakin jarang (sparse). Data points menjadi semakin berjauhan satu sama lain sehingga konsep kemiripan atau jarak menjadi kurang bermakna. Model juga membutuhkan jumlah data yang meningkat secara eksponensial untuk mempertahankan performa yang sama. Dimensionality reduction menjadi solusi untuk permasalahan ini dengan mengurangi jumlah fitur tanpa kehilangan informasi yang penting.
+    </p>
+
+    <h3>A. Principal Component Analysis (PCA)</h3>
+    <p>
+        PCA merupakan teknik dimensionality reduction linear yang paling populer. PCA bekerja dengan menemukan sumbu-sumbu ortogonal (principal components) yang mampu menangkap variasi terbesar dalam data. Komponen pertama menangkap variasi terbesar, komponen kedua menangkap variasi terbesar berikutnya yang ortogonal terhadap komponen pertama, dan seterusnya.
+    </p>
+    <p><strong>Cara Kerja PCA:</strong></p>
+    <div class="list">
+        <ol>
+            <li><strong>Standardization:</strong> <p>Menormalisasi data sehingga setiap fitur memiliki nilai rata-rata 0 dan standar deviasi 1 agar semua fitur berkontribusi secara seimbang.</p></li>
+            <li><strong>Covariance Matrix:</strong> <p>Menghitung matriks kovarians untuk mengukur bagaimana fitur-fitur berubah secara bersamaan.</p></li>
+            <li><strong>Eigendecomposition:</strong> <p>Menghitung eigenvector dan eigenvalue dari matriks kovarians. Eigenvector menunjukkan arah principal components, sedangkan eigenvalue menunjukkan besarnya variansi yang dijelaskan.</p></li>
+            <li><strong>Select Components:</strong> <p>Memilih K eigenvector teratas dengan eigenvalue terbesar untuk membentuk ruang fitur yang baru.</p></li>
+            <li><strong>Transform Data:</strong> <p>Memproyeksikan data asli ke ruang baru yang didefinisikan oleh principal components terpilih.</p></li>
+        </ol>
+    </div>
+    <p><strong>Kelebihan PCA:</strong> Cepat dan efisien, terdefinisi secara matematis dengan baik, menghilangkan korelasi antar fitur, serta mampu mereduksi noise.</p>
+    <p><strong>Kekurangan PCA:</strong> Hanya mampu menangkap hubungan linear, principal components sulit untuk diinterpretasikan, serta sensitif terhadap skala data.</p>
+    <p><strong>Aplikasi:</strong> Kompresi gambar, reduksi noise, exploratory data analysis, preprocessing untuk machine learning, serta analisis data genomik.</p>
+
+    <h3>B. t-SNE (t-Distributed Stochastic Neighbor Embedding)</h3>
+    <p>
+        t-SNE merupakan teknik dimensionality reduction non-linear yang sangat kuat untuk visualisasi data berdimensi tinggi ke dalam ruang 2D atau 3D. Berbeda dengan PCA yang berfokus pada pelestarian struktur global, t-SNE sangat baik dalam mempertahankan struktur lokal dan mengungkap pola cluster dalam data.
+    </p>
+    <p><strong>Konsep Kunci t-SNE:</strong></p>
+    <div class="list">
+        <ul>
+            <li><strong>Pairwise Similarities:</strong> <p>Menghitung tingkat kemiripan antara setiap pasangan data points dalam ruang berdimensi tinggi menggunakan distribusi Gaussian.</p></li>
+            <li><strong>Low-dimensional Mapping:</strong> <p>Membuat pemetaan ke ruang berdimensi rendah menggunakan distribusi probabilitas yang berbeda, yaitu Student’s t-distribution.</p></li>
+            <li><strong>Optimization:</strong> <p>Meminimalkan perbedaan antara distribusi berdimensi tinggi dan berdimensi rendah menggunakan metode gradient descent.</p></li>
+        </ul>
+    </div>
+    <p><strong>Kelebihan t-SNE:</strong> Sangat baik untuk visualisasi, mampu menampilkan cluster dengan jelas, serta dapat menangani hubungan non-linear.</p>
+    <p><strong>Kekurangan t-SNE:</strong> Membutuhkan komputasi yang mahal, bersifat non-deterministic (hasil dapat berbeda setiap kali dijalankan), jarak pada plot t-SNE tidak bermakna secara kuantitatif, serta tidak cocok untuk memproyeksikan data baru.</p>
+    <p><strong>Parameter Penting:</strong> Perplexity (menyeimbangkan aspek lokal dan global, biasanya bernilai 5–50) dan learning rate.</p>
+
+    <h3>C. Autoencoders</h3>
+    <p>
+        Autoencoders merupakan arsitektur neural network yang terdiri dari encoder untuk memampatkan data dan decoder untuk merekonstruksi kembali data tersebut. Lapisan bottleneck di bagian tengah berfungsi sebagai representasi terkompresi. Model dilatih dengan meminimalkan reconstruction error sehingga lapisan bottleneck dipaksa untuk mempelajari fitur-fitur yang paling penting.
+    </p>
+    <p><strong>Tipe Autoencoders:</strong> Vanilla Autoencoders, Sparse Autoencoders (dengan penambahan batasan sparsity), Denoising Autoencoders (dilatih menggunakan input yang telah diberi noise), serta Variational Autoencoders (model generatif).</p>
+    <p><strong>Aplikasi:</strong> Ekstraksi fitur, denoising data, anomaly detection, generasi gambar, serta dimensionality reduction pada deep learning.</p>
+
+    <h3>2. Association Rule Learning</h3>
+    <p>
+        Association rule learning bertujuan untuk menemukan hubungan atau asosiasi yang menarik antar item dalam database transaksi berskala besar. Teknik ini mengidentifikasi aturan dalam bentuk “jika {X} maka {Y}” yang menggambarkan pola kemunculan bersama. Metode ini paling terkenal dalam market basket analysis untuk menemukan item-item yang sering dibeli secara bersamaan.
+    </p>
+
+    <h3>Konsep Fundamental Association Rules</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Itemset:</strong> <p>Kumpulan satu atau lebih item, misalnya {Roti, Susu} atau {Telur, Mentega, Keju}.</p></li>
+            <li><strong>Support:</strong> <p>Frekuensi kemunculan itemset dalam database transaksi. Mengukur seberapa sering kombinasi item muncul.</p></li>
+            <li><strong>Confidence:</strong> <p>Probabilitas kondisional bahwa Y terjadi ketika X terjadi, yang menunjukkan tingkat keandalan sebuah aturan.</p></li>
+            <li><strong>Lift:</strong> <p>Rasio antara support yang diamati dengan support yang diharapkan jika X dan Y bersifat independen. Nilai lift lebih dari 1 menunjukkan korelasi positif.</p></li>
+        </ul>
+    </div>
+
+    <h3>Apriori Algorithm</h3>
+    <p>
+        Apriori merupakan algoritma klasik untuk menambang frequent itemsets dan association rules. Algoritma ini menggunakan prinsip apriori, yaitu jika suatu itemset bersifat frequent, maka semua subset-nya juga frequent. Sebaliknya, jika suatu itemset tidak frequent, maka seluruh superset-nya juga tidak akan frequent.
+    </p>
+    <p><strong>Langkah-langkah Apriori:</strong></p>
+    <div class="list">
+        <ol>
+            <li><strong>Find Frequent 1-itemsets:</strong> <p>Melakukan pemindaian database untuk menemukan item tunggal yang memenuhi ambang batas minimum support.</p></li>
+            <li><strong>Generate Candidate k-itemsets:</strong> <p>Menggabungkan frequent (k-1)-itemsets untuk membentuk kandidat k-itemsets.</p></li>
+            <li><strong>Prune Candidates:</strong> <p>Menghilangkan kandidat yang memiliki subset tidak frequent menggunakan prinsip apriori.</p></li>
+            <li><strong>Count Support:</strong> <p>Melakukan pemindaian ulang database untuk menghitung support dari kandidat yang tersisa.</p></li>
+            <li><strong>Iterate:</strong> <p>Mengulangi proses hingga tidak ditemukan itemset frequent yang baru.</p></li>
+            <li><strong>Generate Rules:</strong> <p>Membangkitkan association rules yang memenuhi ambang batas minimum confidence.</p></li>
+        </ol>
+    </div>
+    <p><strong>Aplikasi Association Rules:</strong> Market basket analysis, recommendation systems, strategi cross-selling, optimasi tata letak toko, web usage mining, diagnosis medis, serta bioinformatika.</p>
+
+    <h3>3. Anomaly Detection (Outlier Detection)</h3>
+    <p>
+        Anomaly detection merupakan tugas untuk mengidentifikasi data points, kejadian, atau observasi yang menyimpang secara signifikan dari perilaku normal yang diharapkan. Anomali atau outliers merupakan data yang jarang muncul dan menimbulkan kecurigaan karena berbeda dari mayoritas data. Anomaly detection sangat penting untuk menemukan pola tidak biasa yang dapat mengindikasikan permasalahan kritis.
+    </p>
+
+    <h3>Tipe Anomalies</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Point Anomalies:</strong> <p>Data individual yang bersifat anomali dibandingkan dengan keseluruhan data lainnya.</p></li>
+            <li><strong>Contextual Anomalies:</strong> <p>Data yang bersifat anomali dalam konteks tertentu tetapi normal pada konteks yang berbeda.</p></li>
+            <li><strong>Collective Anomalies:</strong> <p>Kumpulan data yang secara bersama-sama bersifat anomali meskipun masing-masing data terlihat normal.</p></li>
+        </ul>
+    </div>
+
+    <h3>Teknik Anomaly Detection</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Statistical Methods:</strong> <p>Mengasumsikan data mengikuti distribusi statistik tertentu, seperti Gaussian, dan menganggap data pada ekor distribusi sebagai anomali.</p></li>
+            <li><strong>Distance-based Methods:</strong> <p>Data points yang berjarak jauh dari mayoritas data dianggap sebagai outliers.</p></li>
+            <li><strong>Density-based Methods:</strong> <p>Data points yang berada pada area dengan kepadatan rendah dianggap sebagai anomali.</p></li>
+            <li><strong>Clustering-based Methods:</strong> <p>Data yang tidak tergabung dalam cluster manapun atau berada pada cluster kecil dianggap sebagai anomali.</p></li>
+            <li><strong>Isolation Forest:</strong> <p>Anomali lebih mudah diisolasi karena jumlahnya sedikit, sehingga memiliki rata-rata panjang jalur yang lebih pendek.</p></li>
+            <li><strong>One-Class SVM:</strong> <p>Mempelajari batas keputusan di sekitar data normal, di mana data di luar batas tersebut dianggap sebagai anomali.</p></li>
+            <li><strong>Autoencoders:</strong> <p>Autoencoder dilatih menggunakan data normal, sehingga data anomali akan menghasilkan reconstruction error yang tinggi.</p></li>
+        </ul>
+    </div>
+
+    <h3>Evaluasi Anomaly Detection</h3>
+    <p>
+        Jika ground truth label tersedia, evaluasi dapat dilakukan menggunakan precision, recall, dan F1-score dengan anomali sebagai kelas positif. Dalam kondisi unsupervised, evaluasi menjadi lebih menantang dan sering kali memerlukan keahlian domain untuk memvalidasi hasil deteksi. Perlu diperhatikan bahwa false positives dan false negatives memiliki biaya yang berbeda tergantung pada konteks aplikasinya.
+    </p>
+
+    <h3>Aplikasi Anomaly Detection</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Fraud Detection:</strong> <p>Mendeteksi transaksi penipuan pada kartu kredit, klaim asuransi, atau aktivitas daring yang tidak wajar.</p></li>
+            <li><strong>Network Intrusion Detection:</strong> <p>Mengidentifikasi serangan siber atau akses tidak sah dalam lalu lintas jaringan.</p></li>
+            <li><strong>System Health Monitoring:</strong> <p>Mendeteksi kegagalan atau penurunan performa pada server, aplikasi, atau infrastruktur.</p></li>
+            <li><strong>Medical Diagnosis:</strong> <p>Mengidentifikasi penyakit langka atau kondisi pasien yang tidak biasa.</p></li>
+            <li><strong>Quality Control:</strong> <p>Mendeteksi produk cacat dalam proses manufaktur.</p></li>
+            <li><strong>Sensor Networks:</strong> <p>Mengidentifikasi sensor yang bermasalah atau kondisi lingkungan yang tidak normal pada sistem IoT.</p></li>
+        </ul>
+    </div>
+
+    <h3>Challenges dalam Unsupervised Learning</h3>
+    <div class="list">
+        <ul>
+            <li><strong>No Ground Truth:</strong> <p>Sulit memvalidasi hasil secara objektif tanpa data berlabel, sehingga sering membutuhkan keahlian domain.</p></li>
+            <li><strong>Hyperparameter Tuning:</strong> <p>Pemilihan parameter optimal memerlukan eksperimen yang berulang.</p></li>
+            <li><strong>Interpretability:</strong> <p>Hasil yang diperoleh terkadang sulit untuk diinterpretasikan atau dijelaskan dalam konteks bisnis.</p></li>
+            <li><strong>Scalability:</strong> <p>Beberapa metode tidak dapat diskalakan dengan baik pada dataset yang sangat besar.</p></li>
+            <li><strong>High Dimensionality:</strong> <p>Curse of dimensionality memengaruhi banyak metode unsupervised sehingga reduksi dimensi sering diperlukan sebagai tahap praproses.</p></li>
+        </ul>
+    </div>
+
+</div>

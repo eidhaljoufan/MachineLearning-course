@@ -1,0 +1,113 @@
+<h2>Pertemuan 2 — Data Preprocessing dalam Machine Learning</h2>
+    <p>
+        <strong>Data Preprocessing</strong> adalah tahapan krusial dalam siklus pengembangan model Machine Learning yang bertujuan untuk mentransformasi data mentah (raw data) menjadi format yang bersih dan kompatibel untuk diproses oleh algoritma. Kualitas representasi data secara langsung berkolerasi dengan performa generalisasi model yang dihasilkan.
+    </p>
+
+<div class="materi-container">
+
+    <h3>1. Data Cleaning (Pembersihan Data)</h3>
+    <p>
+        Proses identifikasi dan koreksi terhadap data yang tidak akurat, tidak lengkap, atau tidak konsisten.
+    </p>
+    <ul style="margin-left: 1.5rem; margin-bottom: 1rem; line-height: 1.8rem;">
+        <li><strong>Handling Missing Values:</strong><p>Penanganan data yang hilang menggunakan teknik imputerasi (Mean, Median, Mode) atau penghapusan baris/kolom (Deletion).</p></li>
+        <li><strong>Noise Reduction:</strong><p>Penghapusan outlier atau data pencilan yang dapat mendistorsi distribusi statistik data.</p></li>
+        <li><strong>Consistency Check:</strong><p>Sinkronisasi format data (misal: penyeragaman format tanggal atau satuan ukur).</p></li>
+    </ul>
+
+    
+
+    <h3>2. Data Transformation</h3>
+    <p>
+        Tahapan untuk mengubah skala atau distribusi fitur agar algoritma dapat melakukan konvergensi lebih cepat.
+    </p>
+    <div class="list">
+    <ul>
+        <li><strong>Normalization (Min-Max Scaling):</strong> <p>Menskalakan data ke rentang 0 hingga 1.</p></li>
+        <li><strong>Standardization (Z-score Scaling):</strong> <p>Mengubah data sehingga memiliki rata-rata (mean) 0 dan standar deviasi 1.</p></li>
+        <li><strong>Encoding:</strong> <p>Mentransformasi data kategorikal menjadi representasi numerik (contoh: One-Hot Encoding atau Label Encoding).</p></li>
+    </ul>
+    </div>
+
+    
+
+    <h3 class="h3">3. Data Reduction</h3>
+    <p>
+        Teknik untuk menyederhanakan dataset dengan mengurangi jumlah fitur (variabel) tanpa menghilangkan informasi signifikan, guna menghindari <em>Curse of Dimensionality</em>.
+    </p>
+    <div class="list">
+    <ul>
+        <li><strong>Feature Selection:</strong> <p>Memilih subset fitur yang paling relevan dengan target.</p></li>
+        <li><strong>Feature Extraction:</strong> <p>Menggabungkan beberapa fitur menjadi fitur baru yang lebih informatif (contoh: Principal Component Analysis/PCA).</p></li>
+    </ul>
+    </div>
+
+    <h3>Siklus Pengembangan dan Metodologi Machine Learning</h3>
+    <p>
+        Implementasi <em>Machine Learning</em> mengikuti alur kerja iteratif yang sistematis untuk memastikan model memiliki kemampuan generalisasi yang tinggi terhadap data baru. Berikut adalah dekomposisi langkah-langkah penyelesaiannya:
+    </p>
+
+    
+    <div class="list">
+    <ol>
+        <li>
+            <strong>Pengumpulan Data (Data Collection)</strong>
+            <p>Tahap akuisisi data yang relevan dari berbagai instrumen seperti database relasional, sensor IoT, <em>Application Programming Interface</em> (API), maupun repositori publik.</p>
+        </li>
+
+        <li>
+            <strong>Pemahaman Data (Data Understanding)</strong>
+            <p>Melakukan analisis eksploratif untuk memetakan struktur, format, dan karakteristik statistik data, termasuk identifikasi korelasi antar variabel dalam dataset.</p>
+        </li>
+
+        <li>
+            <strong>Pembersihan Data (Data Cleaning)</strong>
+            <p>Eradikasi anomali dataset melalui penghapusan redundansi (duplikat), mitigasi nilai yang hilang (missing values), dan standardisasi format yang inkonsisten.</p>
+        </li>
+
+        <li>
+            <strong>Preprocessing Data</strong>
+            <p>Transformasi fitur agar siap dikonsumsi algoritma, mencakup normalisasi skala, <em>encoding</em> variabel kategorikal, serta seleksi fitur relevan guna mereduksi dimensi data.</p>
+        </li>
+
+        
+        <li>
+            <strong>Pemisahan Dataset (Dataset Splitting)</strong>
+            <p>Alokasi data menjadi subset pelatihan (<em>training set</em>) untuk konstruksi model dan subset pengujian (<em>testing set</em>) untuk validasi independen guna mencegah <em>overfitting</em>.</p>
+        </li>
+
+        <li>
+            <strong>Pemilihan Model (Model Selection)</strong>
+            <p>Determinasi algoritma yang paling kompatibel dengan tipologi masalah (Klasifikasi/Regresi) serta mempertimbangkan aspek interpretabilitas dan skala data.</p>
+        </li>
+
+        <li>
+            <strong>Pelatihan Model (Model Training)</strong>
+            <p>Proses induksi di mana model mengekstraksi pola dari data latih dengan mengoptimalkan parameter atau bobot (<em>weights</em>) untuk meminimalkan fungsi kerugian (<em>loss function</em>).</p>
+        </li>
+
+        <li>
+            <strong>Evaluasi Model (Model Evaluation)</strong>
+            <p>Asesmen performa model menggunakan metrik saintifik seperti Akurasi, Presisi, <em>Recall</em>, F1-Score, dan AUC pada data uji.</p>
+        </li>
+
+        <li>
+            <strong>Penyetelan Model (Model Tuning)</strong>
+            <p>Optimasi performa melalui penyetelan hiperparameter menggunakan teknik sistematis seperti <em>Grid Search</em> atau <em>Random Search</em>.</p>
+        </li>
+
+        <li>
+            <strong>Pengujian Model (Model Testing)</strong>
+            <p>Validasi akhir menggunakan data yang sepenuhnya baru (unseen data) untuk mensimulasikan performa model pada skenario dunia nyata.</p>
+        </li>
+
+        <li>
+            <strong>Penyempurnaan dan Implementasi (Deployment)</strong>
+            <p>Integrasi model ke dalam ekosistem produksi, mencakup pemantauan performa berkelanjutan dan pemeliharaan model agar tetap relevan terhadap perubahan distribusi data.</p>
+        </li>
+    </ol>
+    </div>
+    <p>
+        Setelah langkah-langkah ini selesai, model dapat diimplementasikan dalam produksi dan digunakan untuk membuat prediksi atau mengambil keputusan berdasarkan data baru. Penting untuk diingat bahwa langkah-langkah ini bersifat iteratif dan dapat melibatkan pengulangan dan penyesuaian ulang berdasarkan evaluasi dan kebutuhan yang muncul selama proses.
+    </p>
+</div>

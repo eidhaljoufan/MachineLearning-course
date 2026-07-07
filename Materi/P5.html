@@ -1,0 +1,114 @@
+<h2>Pertemuan 5 — Naive Bayes</h2>
+
+<p>
+    Sebelum memahami metode Naive Bayes, kita harus terlebih dahulu menguasai konsep fundamental dari teori probabilitas dan Teorema Bayes. <strong>Teori probabilitas</strong> adalah cabang matematika yang mempelajari kemungkinan terjadinya suatu peristiwa. Probabilitas digunakan untuk mengukur seberapa besar peluang suatu kejadian akan terjadi, biasanya dinyatakan dalam angka antara 0 dan 1, di mana 0 berarti kejadian tersebut tidak mungkin terjadi, dan 1 berarti kejadian tersebut pasti terjadi. Pemahaman yang solid tentang konsep-konsep probabilitas ini menjadi fondasi untuk memahami bagaimana algoritma Naive Bayes bekerja dalam melakukan klasifikasi data.
+</p>
+
+<div class="materi-container">
+
+    <h3>Konsep Dasar Probabilitas</h3>
+    <p>
+        Probabilitas suatu kejadian A, dinotasikan sebagai P(A), merepresentasikan frekuensi relatif terjadinya kejadian tersebut dalam jangka panjang. Nilai probabilitas berkisar antara 0 hingga 1, atau dapat diekspresikan dalam bentuk persentase 0% hingga 100%. Jika suatu kejadian memiliki probabilitas 0.7 atau 70%, ini berarti dari 100 percobaan, kejadian tersebut diharapkan terjadi sebanyak 70 kali. Dalam konteks machine learning, kita sering bekerja dengan probabilitas untuk membuat prediksi berdasarkan pola yang diamati dari data historis.
+    </p>
+
+    <h3>Aksioma Probabilitas</h3>
+    <p>
+        Teori probabilitas dibangun di atas tiga aksioma fundamental yang menjadi dasar semua perhitungan probabilitas:
+    </p>
+    <div class="list">
+        <ul>
+            <li><strong>Non-negativity:</strong> <p>Probabilitas suatu kejadian tidak pernah negatif. Untuk setiap kejadian A, berlaku P(A) ≥ 0. Ini mencerminkan fakta bahwa probabilitas merepresentasikan proporsi atau frekuensi relatif yang secara alamiah tidak bisa bernilai negatif.</p></li>
+            <li><strong>Normalization:</strong> <p>Probabilitas dari semua kemungkinan outcome dalam sample space adalah 1. Jika S adalah sample space (ruang sampel), maka P(S) = 1. Ini berarti jika kita mempertimbangkan semua kemungkinan hasil, salah satunya pasti akan terjadi.</p></li>
+            <li><strong>Additivity:</strong> <p>Untuk dua kejadian yang mutually exclusive (saling lepas), probabilitas salah satu dari keduanya terjadi adalah jumlah probabilitas masing-masing. Jika A dan B mutually exclusive, maka P(A atau B) = P(A) + P(B).</p></li>
+        </ul>
+    </div>
+
+    <h3>Jenis-Jenis Probabilitas</h3>
+    <p>
+        Dalam analisis probabilitas, terdapat beberapa konsep penting yang saling terkait:
+    </p>
+    <div class="list">
+        <ul>
+            <li><strong>Probabilitas Marginal (Prior Probability):</strong> <p>Probabilitas suatu kejadian terjadi tanpa mempertimbangkan informasi lain. Contohnya P(A) adalah probabilitas kejadian A terjadi secara independen. Dalam klasifikasi, ini adalah probabilitas sebuah kelas tanpa melihat fitur apapun.</p></li>
+            <li><strong>Probabilitas Bersyarat (Conditional Probability):</strong> <p>Probabilitas suatu kejadian terjadi dengan syarat kejadian lain telah terjadi, dinotasikan sebagai P(A|B) yang dibaca "probabilitas A given B". Ini mengukur seberapa mungkin A terjadi jika kita sudah tahu B terjadi. Contoh: P(Hujan|Mendung) adalah probabilitas hujan turun jika kita tahu cuaca sedang mendung.</p></li>
+            <li><strong>Probabilitas Gabungan (Joint Probability):</strong> <p>Probabilitas dua atau lebih kejadian terjadi secara bersamaan, dinotasikan sebagai P(A, B) atau P(A ∩ B). Untuk kejadian independen, P(A, B) = P(A) × P(B). Namun jika ada dependensi, P(A, B) = P(A|B) × P(B).</p></li>
+        </ul>
+    </div>
+
+    <h3>Teorema Bayes</h3>
+    <p>
+        Teorema Bayes adalah fondasi matematis dari algoritma Naive Bayes yang memungkinkan kita untuk membalik probabilitas bersyarat. Teorema ini menyatakan bahwa kita dapat menghitung probabilitas suatu hipotesis (H) benar given evidence (E) yang kita amati, menggunakan formula:
+    </p>
+    <p style="text-align: center; font-weight: bold; font-size: 18px; margin: 1.5rem 0;">
+        P(H|E) = [P(E|H) × P(H)] / P(E)
+    </p>
+    <p>
+        Dimana komponen-komponen tersebut memiliki interpretasi sebagai berikut:
+    </p>
+    <div class="list">
+        <ul>
+            <li><strong>P(H|E) - Posterior Probability:</strong> <p>Probabilitas hipotesis H benar setelah kita mengamati evidence E. Ini adalah nilai yang ingin kita cari dalam proses klasifikasi.</p></li>
+            <li><strong>P(E|H) - Likelihood:</strong> <p>Probabilitas mengamati evidence E jika hipotesis H benar. Mengukur seberapa cocok data yang diamati dengan hipotesis.</p></li>
+            <li><strong>P(H) - Prior Probability:</strong> <p>Probabilitas awal hipotesis H sebelum melihat evidence apapun. Merepresentasikan belief awal kita terhadap hipotesis.</p></li>
+            <li><strong>P(E) - Evidence:</strong> <p>Probabilitas total evidence E terjadi, berfungsi sebagai normalization factor yang memastikan probabilitas posterior berada dalam rentang valid.</p></li>
+        </ul>
+    </div>
+
+    <h3>Naive Bayes Classifier</h3>
+    <p>
+        <strong>Naive Bayes</strong> adalah algoritma klasifikasi probabilistik yang menerapkan Teorema Bayes dengan asumsi "naive" (naif) bahwa semua fitur bersifat independen satu sama lain given class label. Meskipun asumsi independensi ini jarang terpenuhi dalam realitas, Naive Bayes tetap menunjukkan performa yang mengagumkan dalam berbagai aplikasi praktis. Algoritma ini bekerja dengan menghitung probabilitas posterior untuk setiap kelas, kemudian memilih kelas dengan probabilitas tertinggi sebagai prediksi.
+    </p>
+    <p>
+        Untuk klasifikasi dengan fitur X₁, X₂, ..., Xₙ dan kelas C, Naive Bayes menghitung:
+    </p>
+    <p style="text-align: center; font-weight: bold; font-size: 18px; margin: 1.5rem 0;">
+        P(C|X₁,...,Xₙ) ∝ P(C) × P(X₁|C) × P(X₂|C) × ... × P(Xₙ|C)
+    </p>
+
+    <h3>Asumsi Conditional Independence</h3>
+    <p>
+        Asumsi kunci Naive Bayes adalah bahwa fitur-fitur bersifat conditionally independent given class. Artinya, kehadiran suatu fitur tidak mempengaruhi kehadiran fitur lain jika kita sudah tahu kelasnya. Asumsi ini menyederhanakan perhitungan secara dramatis, mengubah joint probability yang kompleks menjadi perkalian simple conditional probabilities. Meskipun asumsi ini sering dilanggar dalam praktik, Naive Bayes tetap robust dan efektif karena yang penting untuk klasifikasi adalah ranking relatif probabilitas antar kelas, bukan nilai probabilitas absolut yang akurat.
+    </p>
+
+    <h3>Variasi Naive Bayes</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Gaussian Naive Bayes:</strong> <p>Digunakan ketika fitur kontinu mengikuti distribusi normal (Gaussian). Likelihood dihitung menggunakan fungsi probability density function dari distribusi normal. Cocok untuk data numerik seperti measurements atau sensor readings.</p></li>
+            <li><strong>Multinomial Naive Bayes:</strong> <p>Digunakan untuk fitur diskrit yang merepresentasikan frekuensi atau count data, seperti word counts dalam dokumen. Sangat populer untuk text classification dan document categorization.</p></li>
+            <li><strong>Bernoulli Naive Bayes:</strong> <p>Digunakan untuk fitur binary (0/1 atau True/False). Setiap fitur merepresentasikan kehadiran atau ketidakhadiran suatu atribut. Cocok untuk text classification dengan binary word occurrence features.</p></li>
+        </ul>
+    </div>
+
+    <h3>Kelebihan Naive Bayes</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Komputasi Sangat Cepat:</strong> <p>Training dan prediksi berlangsung sangat cepat karena hanya menghitung probabilitas sederhana. Kompleksitas waktu linear O(n) terhadap jumlah fitur.</p></li>
+            <li><strong>Efisien pada Data Besar:</strong> <p>Dapat menangani dataset dengan jumlah fitur yang sangat besar (high-dimensional) tanpa masalah performa signifikan.</p></li>
+            <li><strong>Bekerja Baik dengan Small Dataset:</strong> <p>Tidak memerlukan training data yang sangat besar untuk menghasilkan model yang reasonable, berbeda dengan deep learning.</p></li>
+            <li><strong>Robust terhadap Irrelevant Features:</strong> <p>Fitur yang tidak relevan akan memiliki probabilitas yang seragam untuk semua kelas, sehingga tidak terlalu mempengaruhi keputusan akhir.</p></li>
+            <li><strong>Interpretable:</strong> <p>Model memberikan probabilitas eksplisit untuk setiap kelas, memudahkan interpretasi dan debugging.</p></li>
+        </ul>
+    </div>
+
+    <h3>Kekurangan Naive Bayes</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Asumsi Independence yang Kuat:</strong> <p>Asumsi bahwa fitur independent jarang terpenuhi dalam dunia nyata. Fitur yang berkorelasi dapat mendistorsi hasil prediksi.</p></li>
+            <li><strong>Zero Frequency Problem:</strong> <p>Jika suatu kombinasi fitur-kelas tidak pernah muncul di training data, probabilitasnya akan 0 dan membuat seluruh probabilitas posterior menjadi 0. Solusinya adalah menggunakan Laplace smoothing (additive smoothing).</p></li>
+            <li><strong>Estimasi Probabilitas Tidak Akurat:</strong> <p>Probabilitas yang dihasilkan sering tidak well-calibrated, meskipun ranking relatifnya tetap berguna untuk klasifikasi.</p></li>
+            <li><strong>Sensitif terhadap Data Imbalance:</strong> <p>Kelas mayoritas akan memiliki prior probability yang sangat tinggi, berpotensi bias terhadap kelas tersebut.</p></li>
+        </ul>
+    </div>
+
+    <h3>Aplikasi Naive Bayes</h3>
+    <div class="list">
+        <ul>
+            <li><strong>Spam Email Filtering:</strong> <p>Mengklasifikasikan email sebagai spam atau legitimate berdasarkan kata-kata yang muncul. Salah satu aplikasi paling sukses dan klasik dari Naive Bayes.</p></li>
+            <li><strong>Sentiment Analysis:</strong> <p>Menentukan sentiment (positif, negatif, netral) dari teks seperti review produk atau social media posts.</p></li>
+            <li><strong>Document Categorization:</strong> <p>Mengkategorikan artikel berita, dokumen ilmiah, atau konten web ke dalam topik-topik tertentu.</p></li>
+            <li><strong>Medical Diagnosis:</strong> <p>Memprediksi penyakit berdasarkan gejala-gejala yang dialami pasien dengan memanfaatkan data historis diagnosis.</p></li>
+            <li><strong>Real-time Prediction:</strong> <p>Karena kecepatan komputasinya, Naive Bayes cocok untuk aplikasi yang memerlukan prediksi real-time dengan latency rendah.</p></li>
+        </ul>
+    </div>
+
+</div>

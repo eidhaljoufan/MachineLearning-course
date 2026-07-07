@@ -1,0 +1,123 @@
+<h2>Pertemuan 8 — Logistic Regression</h2>
+
+<p>
+    <strong>Logistic Regression</strong> adalah algoritma pembelajaran mesin yang digunakan untuk memecahkan masalah klasifikasi, di mana variabel target bersifat kategorikal. Berbeda dengan Linear Regression yang memprediksi nilai kontinu, Logistic Regression menggunakan fungsi logistik (Sigmoid) untuk mengonversi output linear menjadi nilai probabilitas antara 0 dan 1.
+</p>
+
+<div class="perbandingan">
+    <figure>
+        <img src="images/data asli.png" alt="Data Visualization">
+        <figcaption>Gambar 1. Visualisasi Data Asli/mentah sederhana</figcaption>
+    </figure>   
+
+    <figure>
+        <img src="images/linear regression.png" alt="Linear Regression">
+        <figcaption>Gambar 2. Visualisasi Model menghampiri Data dengan linear regression</figcaption>
+    </figure>
+</div>
+
+<div class="perbandingan">
+    <figure>
+        <img src="images/data asli 2.png" alt="Data Visualization 2">
+        <figcaption>Gambar 3. Visualisasi Data Asli/mentah dengan dua kelas</figcaption>
+    </figure>
+
+    <figure>
+        <img src="images/logistic regression.png" alt="Logistic Regression">
+        <figcaption>Gambar 4. Visualisasi Model menghampiri Data dengan logistic regression</figcaption>
+    </figure>
+</div>
+
+<div class="materi-container">
+    <h3>Prinsip Dasar Logistqic Regression</h3>
+    <p>
+        Secara metodologis, algoritma ini tidak mencari garis lurus yang melewati data, melainkan mencari kurva "S" yang paling optimal untuk memisahkan kelas-kelas data berdasarkan probabilitas:
+    </p>
+    <ul class="list">
+        <li><strong>Fungsi Sigmoid:</strong> <p>Persamaan matematis yang memetakan angka real apa pun ke dalam rentang [0, 1]. Rumus: f(z) = 1 / (1 + e<sup>-z</sup>).</p></li>
+        <li><strong>Decision Threshold:</strong> <p>Ambang batas (biasanya 0.5) yang menentukan apakah suatu data masuk ke Kelas A atau Kelas B berdasarkan nilai probabilitasnya.</p></li>
+        <li><strong>Logit Link Function:</strong> <p>Transformasi linear dari probabilitas yang memungkinkan hubungan linear antara fitur dan log-odds dari variabel target.</p></li>
+    </ul>
+
+    <h3>Langkah-Langkah Proses Pemodelan</h3>
+    <p>
+        Implementasi Logistic Regression dalam riset akademik mengikuti alur sistematis berikut untuk memastikan validitas model klasifikasi:
+    </p>
+    <ol>
+        <li>
+            <strong>Linear Combination:</strong>
+            <p>Menghitung kombinasi linear dari fitur menggunakan koefisien &beta; (serupa dengan Linear Regression): z = &beta;<sub>0</sub> + &beta;<sub>1</sub>x<sub>1</sub> + ...</p>
+        </li>
+        <li>
+            <strong>Probability Mapping:</strong>
+            <p>Melewatkan nilai z ke dalam fungsi Sigmoid untuk mendapatkan estimasi probabilitas P(y=1|x).</p>
+        </li>
+        <li>
+            <strong>Log-Loss Optimization:</strong>
+            <p>Melatih model dengan meminimalkan fungsi <em>Cost</em> yang disebut <em>Cross-Entropy Loss</em> atau <em>Log-Loss</em> untuk menyesuaikan koefisien &beta; secara akurat.</p>
+        </li>
+        <li>
+            <strong>Performance Evaluation:</strong>
+            <p>Mengukur kinerja menggunakan <em>Confusion Matrix</em> untuk menghitung nilai Akurasi, Presisi, dan Recall.</p>
+        </li>
+    </ol>
+
+    <h3>Tipe-Tipe Logistic Regression</h3>
+    <p>
+        Algoritma ini dapat diklasifikasikan berdasarkan jumlah dan sifat kategori pada variabel dependennya:
+    </p>
+
+    <table class="python-table">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Tipe</th>
+                <th>Karakteristik Output</th>
+                <th>Contoh Kasus</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Binary Logistic</td>
+                <td>Hanya memiliki dua kategori (Biner).</td>
+                <td>Prediksi Email: Spam atau Bukan Spam.</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Multinomial Logistic</td>
+                <td>Memiliki tiga kategori atau lebih tanpa urutan.</td>
+                <td>Prediksi jenis tanaman: Spesies A, B, atau C.</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Ordinal Logistic</td>
+                <td>Memiliki tiga kategori atau lebih dengan urutan tertentu.</td>
+                <td>Rating Kepuasan: Rendah, Sedang, Tinggi.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Implementasi dengan Scikit-Learn</h3>
+    <p>
+        Dalam prakteknya, kita menggunakan library industri untuk menangani optimasi koefisien &beta; secara efisien pada dataset skala besar.
+    </p>
+
+<pre>
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+
+# Inisialisasi model
+model = LogisticRegression()
+
+# Pelatihan model (Training)
+# X_train = Fitur, y_train = Label Biner
+model.fit(X_train, y_train)
+
+# Mendapatkan probabilitas (P)
+probabilities = model.predict_proba(X_test)
+
+# Prediksi kelas final (berdasarkan threshold 0.5)
+predictions = model.predict(X_test)
+</pre>
+</div>

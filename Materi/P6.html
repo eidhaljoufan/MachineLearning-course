@@ -1,0 +1,71 @@
+    <h2>Pertemuan 6 — Perceptron</h2>
+
+    <p>
+        <strong>Perceptron</strong> merupakan model fundamental dalam ranah Jaringan Saraf Tiruan (Artificial Neural Network) yang berfungsi sebagai pengklasifikasi linear biner. Algoritma ini mensimulasikan cara kerja neuron biologis dalam memproses informasi melalui mekanisme pembobotan input untuk menghasilkan keputusan kategorikal.
+    </p>
+
+    <img src="images/decision boundary.png" alt="Decision Boundary Perceptron">
+
+<div class="materi-container">
+    <h3>Komponen Arsitektur Perceptron</h3>
+    <p>
+        Secara matematis, fungsionalitas Perceptron bergantung pada interaksi dinamis antara beberapa komponen variabel primer berikut:
+    </p>
+    <ul class="list">
+        <li><strong>Input ($x$):</strong> Representasi fitur numerik yang diekstraksi dari dataset sebagai sinyal masuk.</li>
+        <li><strong>Weights ($w$):</strong> Parameter penentu bobot kepentingan atau kontribusi tiap fitur terhadap hasil akhir.</li>
+        <li><strong>Bias ($b$):</strong> Komponen konstan yang memungkinkan pergeseran fungsi aktivasi untuk mencapai fleksibilitas model.</li>
+        <li><strong>Fungsi Aktivasi:</strong> Transformasi non-linear (biasanya <em>Heaviside Step Function</em>) yang mengonversi hasil komputasi menjadi output biner.</li>
+    </ul>
+
+    <img src="images/perceptron algorithm.png" alt="Perceptron Algorithm with More Data">
+
+    <h3>Implementasi Sederhana dengan Python</h3>
+    <p>
+        Kode berikut menunjukkan logika inti Perceptron dalam mempelajari pola linear. Model ini secara iteratif menyesuaikan bobotnya berdasarkan selisih antara nilai prediksi dan label aktual hingga mencapai konvergensi.
+    </p>
+
+<pre>
+class Perceptron:
+    def __init__(self, learning_rate=0.1, epochs=10):
+        self.lr = learning_rate
+        self.epochs = epochs
+        self.weights = [0.0, 0.0]
+        self.bias = 0.0
+
+    def predict(self, inputs):
+        # Perhitungan weighted sum (Z = W.X + b)
+        summation = sum(w * i for w, i in zip(self.weights, inputs)) + self.bias
+        return 1 if summation > 0 else 0
+
+    def train(self, training_data, labels):
+        for _ in range(self.epochs):
+            for inputs, label in zip(training_data, labels):
+                prediction = self.predict(inputs)
+                # Aturan pembaharuan bobot (Gradient Descent Sederhana)
+                error = label - prediction
+                self.weights = [w + self.lr * error * i for w, i in zip(self.weights, inputs)]
+                self.bias += self.lr * error
+
+# Dataset Gerbang Logika AND
+data = [[0, 0], [0, 1], [1, 0], [1, 1]]
+labels = [0, 0, 0, 1]
+
+model = Perceptron()
+model.train(data, labels)
+
+# Validasi Model
+print("Hasil Prediksi Gerbang AND:")
+for x in data:
+    print(f"Input: {x} -> Prediksi: {model.predict(x)}")
+</pre>
+
+    <h3>Analisis Keterbatasan dan Decision Boundary</h3>
+    <p>
+        Berdasarkan visualisasi <strong>Decision Boundary</strong>, Perceptron bekerja dengan menarik garis lurus (hiperplane) untuk memisahkan dua kelas data. Namun, model ini memiliki batasan teoretis yang signifikan:
+    </p>
+    <ul class="list">
+        <li><strong>Linear Separability:</strong> Perceptron hanya mampu mengonvergensi solusi jika data dapat dipisahkan secara linear sempurna.</li>
+        <li><strong>Non-Linear Problems:</strong> Model ini gagal dalam memetakan fungsi kompleks seperti gerbang logika XOR, yang secara historis memicu transisi evolusioner menuju <em>Multi-Layer Perceptron</em> (MLP) dan era <em>Deep Learning</em>.</li>
+    </ul>
+</div>

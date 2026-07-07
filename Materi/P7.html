@@ -1,0 +1,103 @@
+    <h2>Pertemuan 7 — Regresi Linear</h2>
+
+    <p>
+        <strong>Linear Regression</strong> adalah teknik pemodelan statistik yang digunakan untuk memprediksi nilai variabel dependen (target) berdasarkan hubungan linear dengan satu atau lebih variabel independen (fitur). Secara akademik, tujuan utamanya adalah menemukan garis regresi terbaik (<em>line of best fit</em>) yang meminimalkan jumlah kuadrat residu atau selisih antara nilai aktual dan prediksi.
+    </p>
+
+<div class="materi-container">
+    <h3>Proses Linear Regression</h3>
+    <p>
+        Dalam siklus pengembangan model regresi, terdapat empat tahapan utama yang dilakukan secara berurutan untuk menghasilkan estimasi yang presisi:
+    </p>
+    <ol class="list">
+        <li>
+           <strong>Modeling:</strong>
+            <p>Tahap konstruksi model berdasarkan basis data yang tersedia dengan menghitung nilai koefisien regresi (&beta;) yang meminimalkan error (sering disebut sebagai metode <em>Ordinary Least Squares</em>, OLS).</p>
+        </li>
+        <li>
+            <strong>Training:</strong>
+            <p>Proses induksi model menggunakan dataset pelatihan untuk menemukan nilai optimal dari koefisien &beta;. Pada tahap ini, algoritma belajar mengenali pola linear dan kekuatan korelasi antar variabel.</p>
+        </li>
+        <li>
+            <strong>Evaluation:</strong>
+            <p>Asesmen terhadap performa model untuk mengukur sejauh mana model mampu melakukan prediksi pada data baru. Ukuran umum yang digunakan adalah R<sup>2</sup> (koefisien determinasi), <em>Mean Squared Error</em> (MSE), dan lainnya.</p>
+        </li>
+    </ol>
+
+    <h3>Taksonomi Metode Regresi Linear</h3>
+    <p>
+        Berikut adalah klasifikasi metode regresi berdasarkan kompleksitas data dan tujuan optimasi model:
+    </p>
+
+    <table class="python-table">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Nama Metode</th>
+                <th>Definisi</th>
+                <th>Rumus Dasar</th>
+                <th>Studi Kasus</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Simple Linear Regression</td>
+                <td>Model dengan satu variabel independen tunggal.</td>
+                <td>y = β<sub>0</sub> + β<sub>1</sub>x + ε</td>
+                <td>Prediksi harga rumah berdasarkan luas tanah.</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Multiple Linear Regression</td>
+                <td>Model yang melibatkan dua atau lebih variabel independen.</td>
+                <td>y = β<sub>0</sub> + β<sub>1</sub>x<sub>1</sub> + β<sub>2</sub>x<sub>2</sub> + … + β<sub>n</sub>x<sub>n</sub> + ε</td>
+                <td>Prediksi harga berdasarkan ukuran, lokasi, dan usia bangunan.</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Polynomial Regression</td>
+                <td>Menangani hubungan non-linear dengan memangkatkan fitur.</td>
+                <td> y = β<sub>0</sub> + β<sub>1</sub>x<sup>1</sup> + β<sub>2</sub>x<sup>2</sup> + … + ε</td>
+                <td>Prediksi pertumbuhan organisme terhadap waktu yang melengkung.</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Ridge Regression</td>
+                <td>Regresi dengan penalti L2 untuk mengatasi multikolinearitas.</td>
+                <td>min ‖y − Xβ‖<sup>2</sup> + α‖β‖<sup>2</sup></td>
+                <td>Data dengan fitur yang saling berkorelasi sangat tinggi.</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Lasso Regression</td>
+                <td>Regresi dengan penalti L1 untuk seleksi fitur otomatis.</td>
+                <td>min ‖y − Xβ‖<sup>2</sup> + α‖β‖<sub>1</sub></td>
+                <td>Dataset dengan fitur sangat banyak di mana hanya sedikit yang relevan.</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Elastic Net</td>
+                <td>Kombinasi penalti L1 dan L2 (Ridge + Lasso).</td>
+                <td>Campuran Penalti L1 & L2 
+                    <br/>(min ‖y − Xβ‖<sup>2</sup> + α<sub>1</sub>‖β‖<sub>1</sub> + α<sub>2</sub>‖β‖<sup>2</sup>)
+                </td>
+                <td>Kebutuhan stabilitas Ridge sekaligus efisiensi Lasso.</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Robust Regression</td>
+                <td>Model yang tahan terhadap gangguan outlier ekstrem.</td>
+                <td>Metode M-estimators / Huber Loss</td>
+                <td>Dataset yang memiliki banyak data pencilan (outliers).</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Stepwise Regression</td>
+                <td>Seleksi fitur iteratif (Forward/Backward selection).</td>
+                <td>Prosedur Seleksi Otomatis</td>
+                <td>Mencari kombinasi fitur terbaik secara statistik.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
